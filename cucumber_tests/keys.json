@@ -2,6 +2,16 @@
 	{
 		"loginUrl": "<login_url>",
 		"username": "<username>",
-		"password": "<password>+<security_token>"
+		"password": "<password>+<security_token>",
+		"permissionSets": [
+			"ManageEstimates",
+			"ManageEstimateTemplates",
+			"ManageOpportunity",
+			"ManageProposals",
+			"PricingManager",
+			"ProductManager",
+			"QuoteManager"
+		],
+		"role": "admin"
 	}
 ]

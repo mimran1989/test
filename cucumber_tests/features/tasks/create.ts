@@ -65,7 +65,7 @@ function createARateCardWithRoles(numberOfRoles: number) {
 
 function createRoles(numberOfRoles: number) {
 	return async(actor: Actor): Promise<SObjectSO[]> => {
-		const productObjectQualifiedName = `${actor.world.namespacePrefix}${Product.apiName}`;
+		const productObjectQualifiedName = `${Product.apiName}`;
 		const recordTypeIdsByName = await actor.attemptsTo(Describe.theRecordTypes.for(productObjectQualifiedName));
 		const rolesToCreate: SObjectSO[] = [];
 		for (let i = 0; i < numberOfRoles; i++) {

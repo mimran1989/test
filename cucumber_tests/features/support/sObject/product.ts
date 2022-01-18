@@ -24,11 +24,11 @@ function getRecordCreateDefaults(isDeployedInPackage = false, {
 		Name: Util.getRandomString(18),
 	};
 
-	productSO[qualifier(FIELD_NAME_ACTIVE)] = true;
+	productSO[FIELD_NAME_ACTIVE] = true;
 	productSO[qualifier(FIELD_NAME_PRACTICE)] = practice;
 	productSO[qualifier(FIELD_NAME_GROUP)] = group;
 	productSO[qualifier(FIELD_NAME_ASSOCIATED_PRODUCT_ID)] = serviceProductId;
-	productSO[qualifier(FIELD_NAME_RECORD_TYPE_ID)] = recordTypeId;
+	productSO[FIELD_NAME_RECORD_TYPE_ID] = recordTypeId;
 
 	return productSO;
 }

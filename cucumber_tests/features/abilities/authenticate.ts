@@ -7,6 +7,7 @@ export class AuthenticatedUser extends Ability {
 	readonly username: string;
 	readonly password: string;
 	readonly loginUrl: string;
+	readonly keys: KeyChainEntry;
 
 	private _loggedIn = false;
 	private _connected = false;
@@ -15,11 +16,19 @@ export class AuthenticatedUser extends Ability {
 	private _instanceUrl: string;
 	private _userInfo: UserInfo;
 
-	constructor(username: string, password: string, loginUrl: string) {
+	constructor(username?: string | KeyChainEntry, password?: string, loginUrl?: string) {
 		super();
-		this.username = username;
-		this.password = password;
-		this.loginUrl = loginUrl;
+
+		if (username && !password) {
+			this.keys = username as KeyChainEntry;
+			this.username = this.keys.username;
+			this.password = this.keys.password;
+			this.loginUrl = this.keys.loginUrl;
+		} else {
+			this.username = username as string;
+			this.password = password;
+			this.loginUrl = loginUrl;
+		}
 	}
 
 	// eslint-disable-next-line class-methods-use-this
@@ -37,6 +46,10 @@ export class AuthenticatedUser extends Ability {
 
 	get connection() {
 		return this._connection;
+	}
+
+	get instanceUrl() {
+		return this._instanceUrl;
 	}
 
 	loggedIn(): void {
@@ -59,5 +72,5 @@ export class AuthenticatedUser extends Ability {
 
 export const Authenticate = {
 	usingUsernameAndPassword: (username: string, password: string, loginUrl: string) => new AuthenticatedUser(username, password, loginUrl),
-	withKeys: (keys: KeyChainEntry) => new AuthenticatedUser(keys?.username, keys?.password, keys?.loginUrl),
+	withKeys: (keys: KeyChainEntry) => new AuthenticatedUser(keys),
 };

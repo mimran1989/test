@@ -5,6 +5,7 @@ import { Create } from '../features/tasks/create';
 import Browse from '../features/tasks/interactions/browse';
 import { Last } from '../features/tasks/interactions/crud';
 import Wait from '../features/tasks/interactions/wait';
+import QuoteGrid from '../features/tasks/view-models/quoteGrid';
 
 Given('{actor} have/has created a quote', async(actor: Actor) => actor.attemptsTo(
 	Create.aQuote.thatIsEmpty,
@@ -18,5 +19,5 @@ Given('{actor} have/has created a rate card with {int} role(s)', (actor: Actor, 
 
 When('{actor} visit(s) the quote', async(actor: Actor) => actor.attemptsTo(
 	Browse.toThe(Last.created(Quote)),
-	Wait.for(5).seconds, // arbitrarily wait for 5 seconds to give the page time to load
+	Wait.upTo(100).seconds.until(QuoteGrid.component).exists,
 ));

@@ -8,7 +8,7 @@ import { KeyChain } from './keychain';
 import TestCafeControllerFactory from './testCafeControllerFactory';
 import { World } from './world';
 
-const TIMEOUT = 60000;
+const TIMEOUT = 120000;
 let isTestCafeError = false;
 let attachScreenshotToReport: (path: string) => void | Promise<void>;
 let cafeRunner: TestCafe;
@@ -25,20 +25,22 @@ function createTestFile() {
         + '("test", TestCafeControllerFactory.capture)');
 }
 
-async function runTest(iteration, browser) {
+async function runTest(iteration) {
 	cafeRunner = await createTestCafe('localhost', 1338 + iteration, 1339 + iteration);
 
 	const runner = cafeRunner.createRunner();
 	let testResults;
+	const defaultBrowser = process.env.TEST_CAFE_BROWSER || 'chrome';
 	try {
 		testResults = await runner
 			.src('./test.js')
 			.screenshots('reports/screenshots/', true)
-			.browsers(browser)
+			.browsers(defaultBrowser)
 			.run();
 	} catch (error) {
 		// eslint-disable-next-line no-console
-		console.error(error);
+		console.error(`Error executing testcafe test: ${error}`);
+		throw new Error(`${error}`);
 	}
 
 	return testResults;
@@ -48,7 +50,7 @@ setDefaultTimeout(TIMEOUT);
 
 BeforeAll(() => {
 	// perform some shared setup
-	runTest(testRunsCount, 'chrome');
+	runTest(testRunsCount);
 	createTestFile();
 });
 

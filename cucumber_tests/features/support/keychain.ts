@@ -5,6 +5,8 @@ export type KeyChainEntry = {
     loginUrl: string;
     username: string;
     password: string;
+	permissionSets: string[];
+	role: string;
 };
 
 let rawKeys;

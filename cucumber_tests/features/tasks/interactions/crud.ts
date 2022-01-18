@@ -40,6 +40,7 @@ async function insertRecords(actor: Actor, objectType: string, records: SObjectS
 	const createRecordsResult = await salesforceConnection.sobject(objectType).create(ctxRecords, { allOrNone: true });
 	const errors: any = [];
 
+	// remmeber the record id of inserted records
 	const newRecordsWithIds = (createRecordsResult as unknown as RecordOrError[])
 		.map((record, idx) => {
 			const insertErrors = record.errors;
@@ -52,27 +53,42 @@ async function insertRecords(actor: Actor, objectType: string, records: SObjectS
 		});
 
 	if (errors.length > 0) {
-		// console.log('Error Creating Records:\n', errors);
-		throw new Error(errors.join(','));
+		const isNamespaceError = errors.some((error) => error.statusCode === 'JSON_PARSER_ERROR');
+		const recordsString = ctxRecords.map((ctxRecord) => JSON.stringify(ctxRecord, null, 4));
+		if (isNamespaceError) {
+			throw new Error(`Error inserting records: Invalid field definition for object type: ${objectType},\n${recordsString}`);
+		} else {
+			const errorString: string = errors.map((error) => error.message).join('\n');
+			throw new Error(`Error inserting records:\n${errorString}\n${recordsString}`);
+		}
 	}
 
-	let createdRecords: SObjectSO[] | null = actor.recall(CREATED_RECORDS_KEY);
-	if (!createdRecords) {
-		createdRecords = [];
-		actor.remember(CREATED_RECORDS_KEY, createdRecords);
+	rememberCreatedRecords(actor, newRecordsWithIds);
+
+	const lastCreatedRecord = newRecordsWithIds[newRecordsWithIds.length - 1];
+	rememberTheLastCreatedRecord(actor, objectType, lastCreatedRecord);
+
+	return newRecordsWithIds;
+}
+
+async function rememberCreatedRecords(actor: Actor, createdRecords: SObjectSO[]) {
+	let existingRecords: SObjectSO[] | null = actor.recall(CREATED_RECORDS_KEY);
+	if (!existingRecords) {
+		existingRecords = [];
+		actor.remember(CREATED_RECORDS_KEY, existingRecords);
 	}
 
-	createdRecords.push(...newRecordsWithIds);
+	existingRecords.push(...createdRecords);
+}
 
+async function rememberTheLastCreatedRecord(actor: Actor, objectType: string, lastCreatedRecord: SObjectSO) {
 	let lastCreated: Map<string, SObjectSO> | undefined = actor.recall(LAST_CREATED_KEY);
 	if (!lastCreated) {
 		lastCreated = new Map<string, SObjectSO>();
 		actor.remember(LAST_CREATED_KEY, lastCreated);
 	}
 
-	lastCreated.set(objectType, newRecordsWithIds[newRecordsWithIds.length - 1]);
-
-	return newRecordsWithIds;
+	lastCreated.set(objectType, lastCreatedRecord);
 }
 
 export default Insert;
