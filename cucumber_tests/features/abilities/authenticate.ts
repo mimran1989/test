@@ -29,6 +29,15 @@ export class AuthenticatedUser extends Ability {
 			this.password = password;
 			this.loginUrl = loginUrl;
 		}
+
+		const loginArray = this.loginUrl.split('.');
+		const loginPrefix = loginArray[0].split('://')[1];
+		if (loginPrefix !== 'login' && loginPrefix !== 'test') {
+			if (loginArray[loginArray.length - 3] !== 'my') {
+				console.error('The URL for the Salesforce instance is wrong. Use a MyDomain URL such as https://your-domain.my.salesforce.com/');
+				throw new Error('The URL for the Salesforce instance is wrong. Use a MyDomain URL such as https://your-domain.my.salesforce.com/');
+			}
+		}
 	}
 
 	// eslint-disable-next-line class-methods-use-this

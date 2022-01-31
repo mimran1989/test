@@ -22,10 +22,16 @@ export class KeyChain {
 
 		if (!availableKeys) {
 			// TODO: improve intelligence by allowing 1 key to be checkout out once per scenario but many times when being run in parallel
-			throw Error('There are no available credentials. Please add credentials to keys.json or reduce the number of parallel runs.');
+			throw Error('There are no credentials defined. Please add credentials to keys.json.');
 		}
 
 		const keyToCheckout = availableKeys.shift();
+		if (!keyToCheckout) {
+			// TODO: improve intelligence by allowing 1 key to be checkout out once per scenario but many times when being run in parallel
+			console.log(`All keys are checked out. Keys checked-out: ${checkedOutKeys.length}`);
+			throw Error('There are no available credentials. Please add credentials to keys.json or reduce the number of parallel runs.');
+		}
+
 		checkedOutKeys.push(keyToCheckout as AuthenticatedUser);
 		return buildCheckInKey(keyToCheckout as AuthenticatedUser);
 	}

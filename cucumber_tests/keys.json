@@ -2,7 +2,7 @@
 	{
 		"loginUrl": "<login_url>",
 		"username": "<username>",
-		"password": "<password>+<security_token>",
+		"password": "<password>",
 		"permissionSets": [
 			"ManageEstimates",
 			"ManageEstimateTemplates",

@@ -1,5 +1,6 @@
 import { Assert } from '../../questions/ensure';
 import { Actor } from '../../support/actor';
+import { WebComponentSelector } from '../../support/componentSelector';
 
 const Wait = {
 	for: (timeToWait: number) => ({
@@ -7,7 +8,7 @@ const Wait = {
 	}),
 	upTo: (waitTime: number) => ({
 		seconds: {
-			until: (selector: Selector) => Assert(selector, undefined, waitTime * 1000),
+			until: (selector: Selector | WebComponentSelector) => Assert(selector, undefined, waitTime * 1000),
 		},
 	}),
 };

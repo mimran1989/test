@@ -8,20 +8,21 @@ const FIELD_NAME_RECORD_TYPE_ID = 'RecordTypeId';
 const FIELD_NAME_ASSOCIATED_PRODUCT_ID = 'AssociatedProductId__c';
 export const RECORD_TYPE_RESOURCE_ROLE = 'Resource Role';
 
-interface ProductRecordInput extends IRecordInput {
+export interface ProductRecordInput extends IRecordInput {
 	recordTypeId?: string;
     serviceProductId?: string;
     practice?: string;
+	productName?: string;
     group?: string;
 }
 
 function getRecordCreateDefaults(isDeployedInPackage = false, {
-	group, practice, recordTypeId, serviceProductId,
+	productName, group, practice, recordTypeId, serviceProductId,
 }: ProductRecordInput) {
 	const qualifier = Util.nameQualifier(isDeployedInPackage);
 
 	const productSO: SObjectSO = {
-		Name: Util.getRandomString(18),
+		Name: productName || Util.getRandomString(18),
 	};
 
 	productSO[FIELD_NAME_ACTIVE] = true;
