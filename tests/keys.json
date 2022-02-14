@@ -1,0 +1,17 @@
+[
+	{
+		"loginUrl": "https://login.salesforce.com",
+		"username": "imran@provusinc.com.qa.next",
+		"password": "salesforce@123",
+		"permissionSets": [
+			"ManageEstimates",
+			"ManageEstimateTemplates",
+			"ManageOpportunity",
+			"ManageProposals",
+			"PricingManager",
+			"ProductManager",
+			"QuoteManager"
+		],
+		"role": "admin"
+	}
+]
