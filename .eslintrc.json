@@ -1,0 +1,98 @@
+{
+	"env": {
+		"browser": true,
+		"es2020": true,
+		"jest/globals": true
+	},
+	"extends": ["airbnb-base", "plugin:testcafe/recommended"],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"impliedStrict": true
+		},
+		"ecmaVersion": 2019,
+		"sourceType": "module"
+	},
+	"globals": {
+		"Provus": "readonly"
+	},
+	"plugins": ["@typescript-eslint", "jest", "testcafe"],
+	"rules": {
+		"import/extensions": 0,
+		"import/no-unresolved": 0,
+		"indent": [2, "tab", { "SwitchCase": 1 }], //error, enforce tabs only
+		"no-plusplus": [2, { "allowForLoopAfterthoughts": true }], //# error, allow plus-plus only in loop afterthoughts
+		"no-tabs": 0,
+		"space-before-function-paren": [2, "never"],
+		"lines-between-class-members": 0,
+		"no-use-before-define": ["error", "nofunc"],
+		"no-unused-vars": "off",
+		"@typescript-eslint/no-unused-vars": ["error"],
+		"no-await-in-loop": 0,
+		"no-underscore-dangle": 0,
+		"max-len": ["error", { "code": 170 }],
+		"max-depth": ["error", 4],
+		"max-lines-per-function": ["error", 40],
+		"max-lines": ["error", { "max": 1000, "skipBlankLines": true, "skipComments": true }],
+		"max-statements-per-line": ["error", { "max": 1 }],
+		"import/no-extraneous-dependencies": [
+			"error",
+			{ "devDependencies": ["**/*.test.ts", "cypress/**"] }
+		],
+		"padding-line-between-statements": [
+			"error",
+			{ "blankLine": "always", "prev": "block-like", "next": "*" },
+			{ "blankLine": "always", "prev": "*", "next": "block-like" },
+			{ "blankLine": "always", "prev": "multiline-const", "next": "*" },
+			{ "blankLine": "always", "prev": "multiline-let", "next": "*" },
+			{ "blankLine": "always", "prev": "*", "next": "multiline-const" },
+			{ "blankLine": "always", "prev": "*", "next": "multiline-let" },
+			{ "blankLine": "never", "prev": "singleline-const", "next": "block-like" },
+			{ "blankLine": "never", "prev": "singleline-let", "next": "block-like" },
+			{ "blankLine": "never", "prev": "singleline-const", "next": "singleline-const" },
+			{ "blankLine": "never", "prev": "singleline-const", "next": "singleline-let" },
+			{ "blankLine": "never", "prev": "singleline-let", "next": "singleline-let" },
+			{ "blankLine": "never", "prev": "singleline-let", "next": "singleline-const" }
+		],
+		"complexity": ["error", 10]
+	},
+	"overrides": [
+		{
+			"files": ["force-app/**/aura/**/*\\.js"],
+			"rules": {
+				"func-names": "off",
+				"no-unused-expressions": "off",
+				"object-shorthand": ["error", "consistent"]
+			}
+		},
+		{
+			"files": ["*.test.*", "**/__tests__/*"],
+			"rules": {
+				"global-require": "off",
+				"max-lines-per-function": "off",
+				"import/no-extraneous-dependencies": "off"
+			}
+		},
+		{
+			"files": ["tests/**/*"],
+			"rules": {
+				"import/no-extraneous-dependencies": "off"
+			}
+		},
+		{
+			"files": ["*quoteConfigurator\\.js", "*quoteAncillaries\\.js"],
+			"rules": {
+				"complexity": "off",
+				"max-lines-per-function": "off",
+				"max-depth": "off",
+				"max-lines": "off"
+			}
+		},
+		{
+			"files": ["*.ts"],
+			"rules": {
+				"no-undef": "off"
+			}
+		}
+	]
+}

@@ -1,0 +1,43 @@
+{
+    "packageDirectories": [
+        {
+            "path": "force-app",
+            "default": true,
+            "package": "Provus Services Quoting",
+            "versionName": "Phoenix",
+            "ancestorVersion": "1.15.0",
+            "versionNumber": "1.15.1.NEXT",
+            "apexTestAccess": {
+                "permissionSets": [
+                    "ManageEstimates",
+                    "ManageEstimateTemplates",
+                    "ManageOpportunity",
+                    "ManageProposals",
+                    "PricingManager",
+                    "ProductManager",
+                    "QuoteManager"
+                ]
+            }
+        }
+    ],
+    "name": "quoting",
+    "namespace": "PSQ",
+    "sfdcLoginUrl": "https://login.salesforce.com",
+    "sourceApiVersion": "52.0",
+    "packageAliases": {
+        "Provus Services Quoting": "0Ho5Y000000TNLDSA4",
+        "Provus Services Quoting@1.10.11-2": "04t5Y0000027GtJQAU",
+        "Provus Services Quoting@1.11.7-1": "04t5Y0000027GuCQAU",
+        "Provus Services Quoting@1.12.0-1": "04t5Y0000027GuHQAU",
+        "Provus Services Quoting@1.12.1-1": "04t5Y0000027GuMQAU",
+        "Provus Services Quoting@1.12.2-1": "04t5Y0000027GugQAE",
+        "Provus Services Quoting@1.13.0-1": "04t5Y0000027GulQAE",
+        "Provus Services Quoting@1.14.0-1": "04t5Y0000027GuqQAE",
+        "Provus Services Quoting@1.14.1-1": "04t5Y0000027GuvQAE",
+        "Provus Services Quoting@1.14.2-1": "04t5Y0000027GzmQAE",
+        "Provus Services Quoting@1.14.3-1": "04t5Y0000027GzrQAE",
+        "Provus Services Quoting@1.14.4-1": "04t5Y0000027GzwQAE",
+        "Provus Services Quoting@1.15.0-1": "04t5Y0000027H01QAE",
+        "Provus Services Quoting@1.15.1-1": "04t5Y0000027H06QAE"
+    }
+}

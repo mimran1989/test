@@ -1,0 +1,58 @@
+{
+	"branches": [
+		"master",
+		{
+			"name": "next",
+			"prerelease": true
+		}
+	],
+	"plugins": [
+		[
+			"@semantic-release/commit-analyzer",
+			{
+				"preset": "conventionalcommits",
+				"parserOpts": {
+					"noteKeywords": [
+						"BREAKING CHANGE",
+						"BREAKING CHANGES"
+					]
+				}
+			}
+		],
+		[
+			"@semantic-release/release-notes-generator",
+			{
+				"preset": "conventionalcommits",
+        "parserOpts": {
+					"noteKeywords": [
+						"BREAKING CHANGE",
+						"BREAKING CHANGES"
+					]
+				}
+			}
+		],
+		[
+			"@semantic-release/changelog",
+			{
+				"changelogFile": "docs/CHANGELOG.md"
+			}
+		],
+		[
+			"@semantic-release/exec",
+			{
+				"prepareCmd": "npm run build; cd build; node release-managed-version.js -v ${nextRelease.version} -t ${nextRelease.type} -c ${nextRelease.channel}"
+			}
+		],
+		[
+			"@semantic-release/git",
+			{
+				"assets": [
+					"sfdx-project.json",
+					"docs/CHANGELOG.md"
+				],
+				"message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+			}
+		]
+	],
+	"ci": false
+}

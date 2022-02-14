@@ -1,0 +1,8 @@
+coverage/
+ui/coverage
+
+# ignore the static resources folder
+**/staticresources/**
+
+# ignore the lwc-utils utils library
+**/sparkUtils/**
