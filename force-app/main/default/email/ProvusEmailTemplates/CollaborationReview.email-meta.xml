@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description
+	>The email sent to the quote owner when the collaborator has submitted changes</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>CollaborationReview</name>
+    <style>none</style>
+    <subject>A collaboration is ready for review</subject>
+    <textOnly>Hi {0},
+
+Please click the following link to begin reviewing the changes: {1}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

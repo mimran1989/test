@@ -1,0 +1,219 @@
+<template>
+	<template if:true={isQuoteForm}>
+		<lightning-record-edit-form object-api-name={quoteObjectAPIName}>
+			<header class="slds-modal__header">
+				<h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+					New Quote From Estimate
+				</h2>
+			</header>
+			<div class="slds-modal__content slds-var-p-around_medium">
+				<div class="slds-grid slds-wrap">
+					<div class="slds-col slds-size_1-of-2">
+						<lightning-input-field
+							field-name={quoteFields.name}
+							name="quoteName"
+							value={quote.quoteName}
+							onchange={onChange}
+							required="true"
+						></lightning-input-field>
+					</div>
+					<div class="slds-col slds-size_1-of-2">
+						<lightning-input-field
+							field-name={quoteFields.isPrimary}
+							name="isPrimary"
+							value={quote.isPrimary}
+							onchange={onChange}
+						></lightning-input-field>
+					</div>
+					<div class="slds-col slds-size_1-of-2">
+						<lightning-input-field
+							field-name={quoteFields.accountId}
+							name="accountId"
+							value={quote.accountId}
+							onchange={onChange}
+						></lightning-input-field>
+					</div>
+					<div class="slds-col slds-size_1-of-2">
+						<lightning-input-field
+							field-name={quoteFields.description}
+							name="description"
+							value={quote.description}
+							onchange={onChange}
+						></lightning-input-field>
+					</div>
+					<div class="slds-col slds-size_1-of-2">
+						<lightning-input-field
+							field-name={quoteFields.opportunityId}
+							name="opportunityId"
+							value={quote.opportunityId}
+							onchange={onChange}
+						></lightning-input-field>
+					</div>
+					<div class="slds-col slds-size_1-of-2">
+						<lightning-input-field
+							field-name={quoteFields.serviceStartDate}
+							name="serviceStartDate"
+							value={quote.serviceStartDate}
+							onchange={onChange}
+							required="true"
+						></lightning-input-field>
+					</div>
+					<div class="slds-col slds-size_1-of-2">
+						<lightning-input-field
+							field-name={quoteFields.rateCardId}
+							name="rateCardId"
+							value={quote.rateCardId}
+							onchange={onChange}
+							required="true"
+						></lightning-input-field>
+					</div>
+					<div class="slds-col slds-size_1-of-2">
+						<lightning-input-field
+							field-name={quoteFields.serviceEndDate}
+							name="serviceEndDate"
+							value={quote.serviceEndDate}
+							onchange={onChange}
+						></lightning-input-field>
+					</div>
+					<div class="slds-col slds-size_1-of-2">
+						<lightning-input-field
+							field-name={quoteFields.practice}
+							name="practice"
+							value={quote.practice}
+							disabled
+						></lightning-input-field>
+					</div>
+					<div class="slds-col slds-size_1-of-2">
+						<lightning-input-field
+							field-name={quoteFields.timePeriod}
+							name="timePeriod"
+							value={quote.timePeriod}
+							onchange={onChange}
+							required="true"
+						></lightning-input-field>
+					</div>
+					<div class="slds-col slds-size_1-of-2">
+						<lightning-input-field
+							field-name={quoteFields.group}
+							name="groupValue"
+							value={quote.groupValue}
+							disabled
+						></lightning-input-field>
+					</div>
+					<div class="slds-col slds-size_1-of-2">
+						<lightning-input-field
+							field-name={quoteFields.timePeriodsGroupMethod}
+							name="timePeriodsGroupMethod"
+							value={quote.timePeriodsGroupMethod}
+							onchange={onChange}
+							required="true"
+						></lightning-input-field>
+					</div>
+					<div class="slds-col slds-size_1-of-2">
+						<lightning-input-field
+							field-name={quoteFields.status}
+							name="status"
+							value={quote.status}
+							onchange={onChange}
+						></lightning-input-field>
+					</div>
+					<div class="slds-col slds-size_1-of-2">
+						<lightning-input-field
+							field-name={quoteFields.timePeriodsAlignment}
+							name="timePeriodsAlignment"
+							value={quote.timePeriodsAlignment}
+							onchange={onChange}
+							required="true"
+						></lightning-input-field>
+					</div>
+				</div>
+			</div>
+			<footer class="slds-modal__footer">
+				<lightning-button
+					variant="neutral"
+					type="button"
+					label="Cancel"
+					onclick={handleCancel}
+				></lightning-button>
+				<lightning-button
+					variant="brand"
+					type="button"
+					label="Next"
+					onclick={handleNext}
+					style="margin: 8px"
+				></lightning-button>
+			</footer>
+		</lightning-record-edit-form>
+	</template>
+	<template if:false={isQuoteForm}>
+		<header class="slds-modal__header">
+			<h2 id="modal-heading" class="slds-modal__title slds-hyphenate">Resource Role Preferences</h2>
+		</header>
+		<div class="slds-modal__content slds-var-p-around_medium">
+			<table class="slds-table slds-table_cell-buffer">
+				<thead class="slds-assistive-text">
+					<tr class="slds-line-height_reset">
+						<th class="" scope="col">
+							<div class="slds-truncate" title="Resource Role">Resource Role</div>
+						</th>
+						<th class="" scope="col">
+							<div class="slds-truncate" title="Skill Level">Skill Level</div>
+						</th>
+						<th class="" scope="col">
+							<div class="slds-truncate" title="Location">Location</div>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<template for:each={resourceSelections} for:item="resourceSelection" for:index="index">
+						<tr class="slds-hint-parent" key={resourceSelection.role}>
+							<td data-label="Resource Role" scope="row">
+								<p>
+									<lightning-formatted-text
+										value={resourceSelection.role}
+									></lightning-formatted-text>
+								</p>
+							</td>
+							<td scope="row">
+								<lightning-combobox
+									name="Skill-Level"
+									placeholder="Select Skill"
+									value={resourceSelection.skillLevel}
+									options={resourceSelection.skillLevels}
+									onchange={handleSkillSelection}
+									data-index={index}
+								></lightning-combobox>
+							</td>
+							<td scope="row">
+								<lightning-combobox
+									name="Locations"
+									placeholder="Select Location"
+									value={resourceSelection.location}
+									options={resourceSelection.locations}
+									onchange={handleLocationSelection}
+									data-index={index}
+									disabled={resourceSelection.noSkill}
+								></lightning-combobox>
+							</td>
+						</tr>
+					</template>
+				</tbody>
+			</table>
+		</div>
+		<footer class="slds-modal__footer">
+			<lightning-button
+				variant="neutral"
+				type="button"
+				label="Cancel"
+				onclick={handleCancel}
+			></lightning-button>
+			<lightning-button
+				variant="brand"
+				type="button"
+				label="Save"
+				onclick={saveQuote}
+				style="margin: 8px"
+			></lightning-button>
+		</footer>
+	</template>
+</template>

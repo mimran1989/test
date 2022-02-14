@@ -1,0 +1,103 @@
+<template>
+	<lightning-record-edit-form
+		object-api-name="Quote__c"
+		onsuccess={handleSuccess}
+		onerror={handleError}
+	>
+		<header class="slds-modal__header">
+			<h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">New From Template</h2>
+		</header>
+		<div class="slds-modal__content slds-p-around_medium">
+			<lightning-input-field field-name="Name" required="true"></lightning-input-field>
+			<lightning-input-field
+				field-name="TemplateId__c"
+				value={selectedTemplateId}
+				onchange={onTemplateSelection}
+				required="true"
+			></lightning-input-field>
+			<div class="slds-grid">
+				<div class="slds-col">
+					<lightning-input-field
+						field-name="AccountId__c"
+						value={accountId}
+					></lightning-input-field>
+					<lightning-input-field
+						field-name="OpportunityId__c"
+						value={opportunityId}
+					></lightning-input-field>
+				</div>
+				<div class="slds-col">
+					<lightning-input-field
+						field-name="RateCardId__c"
+						value={rateCardId}
+						disabled="true"
+					></lightning-input-field>
+					<lightning-input-field
+						field-name="ServiceStartDate__c"
+						value={serviceStartDate}
+						onchange={onStartDateChange}
+					></lightning-input-field>
+				</div>
+			</div>
+			<div class="slds-hide">
+				<lightning-input-field field-name="Practice__c" value={practice}></lightning-input-field>
+				<lightning-input-field field-name="Group__c" value={group}></lightning-input-field>
+				<lightning-input-field
+					field-name="ProfitAmount__c"
+					value={profitAmount}
+				></lightning-input-field>
+				<lightning-input-field field-name="QuoteDate__c" value={quoteDate}></lightning-input-field>
+				<lightning-input-field
+					field-name="TotalAmount__c"
+					value={totalAmount}
+					disabled="true"
+				></lightning-input-field>
+				<lightning-input-field
+					field-name="TotalCost__c"
+					value={totalCost}
+					disabled="true"
+				></lightning-input-field>
+				<lightning-input-field
+					field-name="ServiceEndDate__c"
+					value={serviceEndDate}
+					disabled="true"
+				></lightning-input-field>
+				<lightning-input-field
+					field-name="TimePeriod__c"
+					value={timePeriod}
+					disabled="true"
+				></lightning-input-field>
+				<lightning-input-field
+					field-name="TimePeriodsAlignment__c"
+					value={timePeriodsAlignment}
+					disabled="true"
+				></lightning-input-field>
+				<lightning-input-field
+					field-name="TimePeriodsGroupMethod__c"
+					value={timePeriodsGroupMethod}
+					disabled="true"
+				></lightning-input-field>
+				<lightning-input-field field-name="PriceUOM__c" value={priceUOM}></lightning-input-field>
+				<lightning-input-field
+					field-name="MarginPercent__c"
+					value={marginPercent}
+				></lightning-input-field>
+			</div>
+		</div>
+		<footer class="slds-modal__footer">
+			<lightning-button
+				variant="neutral"
+				type="button"
+				label="Cancel"
+				onclick={cancel}
+			></lightning-button>
+			<lightning-button
+				variant="brand"
+				type="submit"
+				name="save"
+				label="Save"
+				style="margin: 8px"
+			></lightning-button>
+		</footer>
+	</lightning-record-edit-form>
+</template>

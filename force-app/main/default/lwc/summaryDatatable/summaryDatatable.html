@@ -1,0 +1,37 @@
+<!--
+  ~ Provus Services Quoting
+  ~ Copyright (c) 2021 Provus Inc. All rights reserved.
+  -->
+<template>
+	<template if:true={rows}>
+		<table class="slds-table slds-table_cell-buffer slds-table_bordered">
+			<thead>
+				<tr class="slds-line-height_reset">
+					<template for:each={columns} for:item="column">
+						<th key={column.fieldName} class="" scope="col">
+							<div class="slds-truncate" title={column.label}>{column.label}</div>
+						</th>
+					</template>
+				</tr>
+			</thead>
+			<tbody>
+				<template for:each={rows} for:item="row">
+					<tr key={row.rowName} class="slds-hint-parent">
+						<template for:each={row.columns} for:item="rowColumn">
+							<td key={rowColumn.name} data-label={rowColumn.name}>
+								<template if:false={rowColumn.isNumber}> {rowColumn.value} </template>
+								<template if:true={rowColumn.isNumber}>
+									<lightning-formatted-number
+										value={rowColumn.value}
+										format-style={rowColumn.type}
+										maximum-fraction-digits="2"
+									></lightning-formatted-number>
+								</template>
+							</td>
+						</template>
+					</tr>
+				</template>
+			</tbody>
+		</table>
+	</template>
+</template>

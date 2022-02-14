@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NewQuoteFromTemplate</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>New Quote From Template</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <requireRowSelection>false</requireRowSelection>
+    <url
+	>{!URLFOR(&apos;/lightning/cmp/&apos; &amp; IF(CONTAINS( LOWER($Action.Quote__c.NewQuoteFromTemplate) ,&apos;psq__&apos;), &apos;psq__&apos;, &apos;c__&apos;) &amp; &apos;newQuoteFromTemplate&apos;, null, null)}</url>
+</WebLink>

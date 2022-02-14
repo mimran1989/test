@@ -1,0 +1,167 @@
+<template>
+	<span style="display: none">{render}</span>
+	<!-- <c-notifier quote={quoteRecordId}></c-notifier> -->
+	<!-- <c-event-listener channel={channel} handler={onMessage}></c-event-listener> -->
+	<c-message-service
+		class="component-state"
+		boundary="component-state"
+		onreport={handleStateReport}
+		ondeselect={handleDeselect}
+		oninvite={handleInvite}
+		onroleselected={handleRoleSelected}
+	></c-message-service>
+	<c-message-service
+		class="grid-update"
+		boundary="grid-update"
+		ontotalchange={handleNameRangeUpdates}
+	></c-message-service>
+	<c-message-service
+		class="rate-factor-override"
+		boundary="rate-factor-override"
+		onratefactorchange={handleConversionRateFactorChange}
+	></c-message-service>
+	<c-quote-service quote={quoteRecordId}></c-quote-service>
+	<template if:true={loading}>
+		<div>
+			<lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+		</div>
+	</template>
+	<template if:false={loading}>
+		<div class="slds-m-around_medium gridContainer">
+			<div class="action-container">
+				<div class="action-container-left"></div>
+				<div class="action-container-right">
+					<lightning-button-group>
+						<template for:each={primaryActions} for:item="primaryAction">
+							<lightning-button
+								if:true={primaryAction.showEnabled}
+								key={primaryAction.label}
+								label={primaryAction.label}
+								onclick={primaryAction.handler}
+							></lightning-button>
+							<lightning-button
+								if:true={primaryAction.showDisabled}
+								key={primaryAction.label}
+								label={primaryAction.label}
+								disabled
+							></lightning-button>
+						</template>
+						<lightning-button
+							label="Adjust Revenue/Margin"
+							onclick={handleOpenAdjustment}
+						></lightning-button>
+						<lightning-button
+							label="Reset"
+							title="Revert the revenue / Margin to the origin value"
+							onclick={handleRevertMarginRevenue}
+						></lightning-button>
+						<lightning-button-menu
+							alternative-text="Show menu"
+							menu-alignment="right"
+							icon-name="utility:settings"
+						>
+							<lightning-menu-item
+								data-id="show-items-menu-item"
+								label={viewSettings.quoteItems.label}
+								onclick={handleToggleQuoteItems}
+							></lightning-menu-item>
+							<lightning-menu-item
+								data-id="show-rate-menu-item"
+								label={viewSettings.rateAttributes.label}
+								onclick={handleToggleRateAttributes}
+							></lightning-menu-item>
+							<lightning-menu-item
+								data-id="show-pricing-menu-item"
+								label={viewSettings.pricingAttributes.label}
+								onclick={handleTogglePricingAttributes}
+							></lightning-menu-item>
+							<lightning-menu-item
+								data-id="show-totals-menu-item"
+								label={viewSettings.totals.label}
+								onclick={handleToggleTotalAmount}
+							></lightning-menu-item>
+							<lightning-menu-item
+								label={viewSettings.metrics.label}
+								onclick={toggleMetrics}
+							></lightning-menu-item>
+						</lightning-button-menu>
+					</lightning-button-group>
+					<c-modal header="Adjust Revenue/Margin">
+						<c-create-scenario props={createScenarioProp} record-id={recordId}></c-create-scenario>
+						<div class="slds-modal__footer">
+							<lightning-button
+								class="slds-p-right_x-small"
+								variant="neutral"
+								label="Cancel"
+								onclick={handleCloseModal}
+							></lightning-button>
+							<lightning-button
+								variant="brand"
+								label="Submit"
+								disabled={disableAdjustment}
+								onclick={handleAdjustment}
+							></lightning-button>
+						</div>
+					</c-modal>
+				</div>
+			</div>
+			<iframe
+				width="100%"
+				height="500"
+				src={gridURL}
+				frameborder="0"
+				onload={initializeFrame}
+			></iframe>
+		</div>
+		<template if:true={isNameModalOpen}>
+			<div class="slds-modal slds-fade-in-open slds-backdrop">
+				<div class="slds-modal__container">
+					<!------HEADER Section-->
+					<div class="slds-modal__header">
+						<lightning-button-icon
+							icon-name="utility:close"
+							alternative-text="Close this window"
+							size="large"
+							variant="bare-inverse"
+							onclick={closeNameModal}
+							class="slds-modal__close"
+						>
+						</lightning-button-icon>
+						<h2>{dialogActionLabel}</h2>
+					</div>
+					<!------Body Section-->
+					<div class="slds-modal__content slds-p-around_medium">
+						<div class="slds-p-around_medium lgc-bg">
+							<lightning-input
+								class="nameInput"
+								type="text"
+								label={dialogInputTitle}
+								placeholder={dialogInputPlaceholder}
+								value={dialogInitialValue}
+								onchange={validateDialogInput}
+								required="true"
+							></lightning-input>
+						</div>
+					</div>
+					<!------Footer Section-->
+					<div class="slds-modal__footer">
+						<lightning-button
+							label={dialogActionLabel}
+							variant="brand"
+							onclick={performNameModalAction}
+							disabled={disableButton}
+						></lightning-button>
+						<lightning-button
+							variant="brand-outline"
+							label="Cancel"
+							title="Cancel"
+							class="slds-m-left_x-small"
+							onclick={closeNameModal}
+						></lightning-button>
+					</div>
+				</div>
+			</div>
+		</template>
+	</template>
+	<c-resource-role-dialog if:false={hideResourceRole}></c-resource-role-dialog>
+</template>

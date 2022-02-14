@@ -1,0 +1,91 @@
+name: Demo branch merge flow
+
+on:
+  push:
+    branches: [Demo]
+
+jobs:
+  deploy-to-demo:
+    needs: [unit-tests, build-javascript, analyze-code-style]
+    name: Deploy to demo
+    runs-on: ubuntu-latest
+    container:
+      image: provus1/provus-ci:2.0
+
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: noliran/branch-based-secrets@v1
+        with:
+          secrets: CI_TOKEN
+      - name: Deploy to demo
+        run: |
+          cp -R . /source
+          cd /source
+
+          mkdir node_modules
+          cp -R /node_modules/* /source/node_modules
+          npm install --silent
+          npm run build
+
+          echo "\$token" > ../token.txt
+          sed -i 's?$token?${{ env.CI_TOKEN }}?g' ../token.txt
+
+          npx sfdx force:auth:sfdxurl:store -f ../token.txt -d -a DeployORG
+          npx sfdx force:source:deploy -u DeployORG -w 10 -p force-app
+        env:
+          CI_TOKEN: ${{ secrets[env.CI_TOKEN_NAME] }}
+  unit-tests:
+    name: Execute javascript unit tests
+    runs-on: ubuntu-latest
+    container:
+      image: provus1/provus-ci:2.0
+
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v2
+      - name: Execute javascript unit tests
+        run: |
+          cp -R . /source
+          cd /source
+
+          mkdir node_modules
+          cp -R /node_modules/* /source/node_modules
+          npm install --silent
+          npm run tests
+  build-javascript:
+    name: Compile and link javascript files
+    runs-on: ubuntu-latest
+    container:
+      image: provus1/provus-ci:2.0
+
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v2
+      - name: Compile and link javascript files
+        run: |
+          cp -R . /source
+          cd /source
+
+          mkdir node_modules
+          cp -R /node_modules/* /source/node_modules
+          npm install --silent
+          npm run compile
+  analyze-code-style:
+    name: Analyze code style
+    runs-on: ubuntu-latest
+    container:
+      image: provus1/provus-ci:2.0
+
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v2
+      - name: Analyze code style
+        run: |
+          cp -R . /source
+          cd /source
+
+          mkdir node_modules
+          cp -R /node_modules/* /source/node_modules
+          npm install
+          npm run lint

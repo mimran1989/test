@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Hour</fullName>
+        <default>false</default>
+        <label>Hour</label>
+    </customValue>
+    <customValue>
+        <fullName>Resource</fullName>
+        <default>false</default>
+        <label>Resource</label>
+    </customValue>
+    <masterLabel>Quantity UOMs</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

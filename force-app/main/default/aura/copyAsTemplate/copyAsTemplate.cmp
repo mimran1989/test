@@ -1,0 +1,27 @@
+<aura:component
+	implements="force:lightningQuickActionWithoutHeader,force:hasRecordId"
+	controller="CopyAsTemplateController"
+>
+	<aura:attribute name="isButtonActive" type="Boolean" default="true" />
+	<aura:attribute name="Message" type="String" default="Please wait..." />
+	<aura:attribute name="errorMessage" type="String" default="" />
+
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+	<div class="slds-m-around--xx-large">
+		<div class="slds-text-heading_medium slds-align_absolute-center">
+			<b>{!v.Message}</b>
+		</div>
+		<div class="slds-align_absolute-center">{!v.errorMessage}</div>
+	</div>
+	<div class="slds-align_absolute-center" style="height: 5rem">
+		<lightning:button
+			variant="brand"
+			type="button"
+			label="Close"
+			title="Close"
+			onclick="{!c.doneRendering}"
+			disabled="{!v.isButtonActive}"
+		/>
+	</div>
+</aura:component>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomMetadata
+	xmlns="http://soap.sforce.com/2006/04/metadata"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+>
+    <label>Provus Default</label>
+    <protected>true</protected>
+    <values>
+        <field>DisableAutomaticOpportunitySync__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>HiddenFields__c</field>
+        <value xsi:nil="true" />
+    </values>
+    <values>
+        <field>ProductDefaultFields__c</field>
+        <value xsi:type="xsd:string">Id,Name,Practice__c,Group__c</value>
+    </values>
+    <values>
+        <field>QuoteItemDefaultFields__c</field>
+        <value xsi:type="xsd:string">AdjustedUnitPrice__c,
+            Frequency__c,
+            Id,
+            LocationDisplayName__c,
+            MarginPercent__c,
+            PriceMethod__c,
+            PriceMethodMarkdown__c,
+            ProductId__c,
+            SkillLevel__c,
+            UnitCost__c,
+            UnitPrice__c</value>
+    </values>
+    <values>
+        <field>RequiredFields__c</field>
+        <value xsi:nil="true" />
+    </values>
+    <values>
+        <field>UneditableFields__c</field>
+        <value xsi:nil="true" />
+    </values>
+</CustomMetadata>

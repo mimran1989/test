@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>UseProjectPhases__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description
+	>When enabled, estimate templates will use Project Phases as their top level grouping item rather than Activity Groups</description>
+    <externalId>false</externalId>
+    <label>Use Project Phases</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

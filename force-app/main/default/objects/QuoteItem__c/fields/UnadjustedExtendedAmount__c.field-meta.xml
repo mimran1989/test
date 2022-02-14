@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>UnadjustedExtendedAmount__c</fullName>
+    <externalId>false</externalId>
+    <label>Unadjusted Extended Amount</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>5</scale>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

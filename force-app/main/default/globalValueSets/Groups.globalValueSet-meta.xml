@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Salesforce Implementation</fullName>
+        <default>false</default>
+        <label>Salesforce Implementation</label>
+    </customValue>
+    <customValue>
+        <fullName>SAP Implementation</fullName>
+        <default>false</default>
+        <label>SAP Implementation</label>
+    </customValue>
+    <customValue>
+        <fullName>Web &amp; Mobile Apps</fullName>
+        <default>false</default>
+        <label>Web &amp; Mobile Apps</label>
+    </customValue>
+    <customValue>
+        <fullName>Java</fullName>
+        <default>false</default>
+        <label>Java</label>
+    </customValue>
+    <customValue>
+        <fullName>.Net</fullName>
+        <default>false</default>
+        <label>.Net</label>
+    </customValue>
+    <customValue>
+        <fullName>Sales Cloud</fullName>
+        <default>false</default>
+        <label>Sales Cloud</label>
+    </customValue>
+    <customValue>
+        <fullName>Service Cloud</fullName>
+        <default>false</default>
+        <label>Service Cloud</label>
+    </customValue>
+    <customValue>
+        <fullName>Marketing Cloud</fullName>
+        <default>false</default>
+        <label>Marketing Cloud</label>
+    </customValue>
+    <customValue>
+        <fullName>SFDC Integration</fullName>
+        <default>false</default>
+        <label>SFDC Integration</label>
+    </customValue>
+    <customValue>
+        <fullName>SAP C/4 HANA CUSTOMER EXP</fullName>
+        <default>false</default>
+        <label>SAP C/4 HANA CUSTOMER EXP</label>
+    </customValue>
+    <customValue>
+        <fullName>SAP S/4 HANA CLOUD ERP</fullName>
+        <default>false</default>
+        <label>SAP S/4 HANA CLOUD ERP</label>
+    </customValue>
+    <customValue>
+        <fullName>SAP SUCCESS FACTORS</fullName>
+        <default>false</default>
+        <label>SAP SUCCESS FACTORS</label>
+    </customValue>
+    <customValue>
+        <fullName>SAP ARIBA</fullName>
+        <default>false</default>
+        <label>SAP ARIBA</label>
+    </customValue>
+    <customValue>
+        <fullName>SAP BUSINESS OBJECTS</fullName>
+        <default>false</default>
+        <label>SAP BUSINESS OBJECTS</label>
+    </customValue>
+    <customValue>
+        <fullName>SAP ACTIVATE</fullName>
+        <default>false</default>
+        <label>SAP ACTIVATE</label>
+    </customValue>
+    <customValue>
+        <fullName>SAP CLOUD PLATFORM Integration</fullName>
+        <default>false</default>
+        <label>SAP CLOUD PLATFORM Integration</label>
+    </customValue>
+    <customValue>
+        <fullName>Oracle Cloud</fullName>
+        <default>false</default>
+        <label>Oracle Cloud</label>
+    </customValue>
+    <customValue>
+        <fullName>Oracle Infrastructure</fullName>
+        <default>false</default>
+        <label>Oracle Infrastructure</label>
+    </customValue>
+    <customValue>
+        <fullName>Oracle Live</fullName>
+        <default>false</default>
+        <label>Oracle Live</label>
+    </customValue>
+    <customValue>
+        <fullName>Amazon Web Services Basics</fullName>
+        <default>false</default>
+        <label>Amazon Web Services Basics</label>
+    </customValue>
+    <customValue>
+        <fullName>Amazon Computer Services</fullName>
+        <default>false</default>
+        <label>Amazon Computer Services</label>
+    </customValue>
+    <customValue>
+        <fullName>Amazon Network Services</fullName>
+        <default>false</default>
+        <label>Amazon Network Services</label>
+    </customValue>
+    <customValue>
+        <fullName>Amazon Storage Services</fullName>
+        <default>false</default>
+        <label>Amazon Storage Services</label>
+    </customValue>
+    <customValue>
+        <fullName>Amazon Database Services</fullName>
+        <default>false</default>
+        <label>Amazon Database Services</label>
+    </customValue>
+    <customValue>
+        <fullName>Amazon Analytics Services</fullName>
+        <default>false</default>
+        <label>Amazon Analytics Services</label>
+    </customValue>
+    <customValue>
+        <fullName>Amazon Application Services</fullName>
+        <default>false</default>
+        <label>Amazon Application Services</label>
+    </customValue>
+    <customValue>
+        <fullName>Amazon Web Services Resources</fullName>
+        <default>false</default>
+        <label>Amazon Web Services Resources</label>
+    </customValue>
+    <customValue>
+        <fullName>AI + Machine Learning</fullName>
+        <default>false</default>
+        <label>AI + Machine Learning</label>
+    </customValue>
+    <customValue>
+        <fullName>Analytics</fullName>
+        <default>false</default>
+        <label>Analytics</label>
+    </customValue>
+    <customValue>
+        <fullName>Blockchain</fullName>
+        <default>false</default>
+        <label>Blockchain</label>
+    </customValue>
+    <customValue>
+        <fullName>Compute</fullName>
+        <default>false</default>
+        <label>Compute</label>
+    </customValue>
+    <customValue>
+        <fullName>Containers</fullName>
+        <default>false</default>
+        <label>Containers</label>
+    </customValue>
+    <customValue>
+        <fullName>Databases</fullName>
+        <default>false</default>
+        <label>Databases</label>
+    </customValue>
+    <customValue>
+        <fullName>Developer Tools</fullName>
+        <default>false</default>
+        <label>Developer Tools</label>
+    </customValue>
+    <customValue>
+        <fullName>DevOps</fullName>
+        <default>false</default>
+        <label>DevOps</label>
+    </customValue>
+    <customValue>
+        <fullName>Hybrid + Multicloud</fullName>
+        <default>false</default>
+        <label>Hybrid + Multicloud</label>
+    </customValue>
+    <customValue>
+        <fullName>Identity</fullName>
+        <default>false</default>
+        <label>Identity</label>
+    </customValue>
+    <customValue>
+        <fullName>Integration</fullName>
+        <default>false</default>
+        <label>Integration</label>
+    </customValue>
+    <customValue>
+        <fullName>Internet of Things</fullName>
+        <default>false</default>
+        <label>Internet of Things</label>
+    </customValue>
+    <customValue>
+        <fullName>Management and Governance</fullName>
+        <default>false</default>
+        <label>Management and Governance</label>
+    </customValue>
+    <customValue>
+        <fullName>Media</fullName>
+        <default>false</default>
+        <label>Media</label>
+    </customValue>
+    <customValue>
+        <fullName>Migration</fullName>
+        <default>false</default>
+        <label>Migration</label>
+    </customValue>
+    <customValue>
+        <fullName>Mixed Reality</fullName>
+        <default>false</default>
+        <label>Mixed Reality</label>
+    </customValue>
+    <customValue>
+        <fullName>Mobile</fullName>
+        <default>false</default>
+        <label>Mobile</label>
+    </customValue>
+    <customValue>
+        <fullName>Networking</fullName>
+        <default>false</default>
+        <label>Networking</label>
+    </customValue>
+    <customValue>
+        <fullName>Security</fullName>
+        <default>false</default>
+        <label>Security</label>
+    </customValue>
+    <customValue>
+        <fullName>Storage</fullName>
+        <default>false</default>
+        <label>Storage</label>
+    </customValue>
+    <customValue>
+        <fullName>Web</fullName>
+        <default>false</default>
+        <label>Web</label>
+    </customValue>
+    <customValue>
+        <fullName>Windows Virtual Desktop</fullName>
+        <default>false</default>
+        <label>Windows Virtual Desktop</label>
+    </customValue>
+    <customValue>
+        <fullName>AWS</fullName>
+        <default>false</default>
+        <label>AWS</label>
+    </customValue>
+    <customValue>
+        <fullName>Azure</fullName>
+        <default>false</default>
+        <label>Azure</label>
+    </customValue>
+    <customValue>
+        <fullName>GCP</fullName>
+        <default>false</default>
+        <label>GCP</label>
+    </customValue>
+    <customValue>
+        <fullName>Mainframe Applications</fullName>
+        <default>false</default>
+        <label>Mainframe Applications</label>
+    </customValue>
+    <customValue>
+        <fullName>IT Management</fullName>
+        <default>false</default>
+        <label>IT Management</label>
+    </customValue>
+    <customValue>
+        <fullName>IT Support</fullName>
+        <default>false</default>
+        <label>IT Support</label>
+    </customValue>
+    <customValue>
+        <fullName>Cloud</fullName>
+        <default>false</default>
+        <label>Cloud</label>
+    </customValue>
+    <customValue>
+        <fullName>Software</fullName>
+        <default>false</default>
+        <label>Software</label>
+    </customValue>
+    <customValue>
+        <fullName>CRM</fullName>
+        <default>false</default>
+        <label>CRM</label>
+    </customValue>
+    <customValue>
+        <fullName>ERP</fullName>
+        <default>false</default>
+        <label>ERP</label>
+    </customValue>
+    <customValue>
+        <fullName>Digital</fullName>
+        <default>false</default>
+        <label>Digital</label>
+    </customValue>
+    <masterLabel>Groups</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

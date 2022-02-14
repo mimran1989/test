@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionSubtype>ScreenAction</actionSubtype>
+    <description
+	>Displays rate conversion factor dialog for user to be able to edit override factors at the quote level</description>
+    <label>Rate Conversion Factors</label>
+    <lightningWebComponent>rateConversionFactors</lightningWebComponent>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>LightningWebComponent</type>
+</QuickAction>

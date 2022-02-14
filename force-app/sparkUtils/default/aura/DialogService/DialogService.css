@@ -1,0 +1,11 @@
+.THIS.big-modal .slds-modal__content {
+  min-height: calc(100vh - 65%);
+}
+
+.THIS.big-modal .slds-modal__content .slds-modal__footer {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    top: calc(100vh - 28%);
+}
+

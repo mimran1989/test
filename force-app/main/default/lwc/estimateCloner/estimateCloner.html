@@ -1,0 +1,23 @@
+<template>
+	<lightning-quick-action-panel header="Clone Estimate">
+		<div class="slds-p-around_large">
+			<div class="slds-p-around_medium lgc-bg">
+				<lightning-input
+					type="text"
+					label="Estimate Name"
+					value={clonedEstimateName}
+					onchange={handleChange}
+				></lightning-input>
+			</div>
+		</div>
+		<div slot="footer">
+			<lightning-button variant="neutral" label="Cancel" onclick={closeAction}></lightning-button>
+			<lightning-button
+				variant="brand"
+				label="Clone"
+				class="slds-m-left_x-small"
+				onclick={cloneEstimate}
+			></lightning-button>
+		</div>
+	</lightning-quick-action-panel>
+</template>

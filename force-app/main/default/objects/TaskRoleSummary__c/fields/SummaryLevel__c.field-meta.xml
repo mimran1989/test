@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SummaryLevel__c</fullName>
+    <externalId>false</externalId>
+    <label>Summary Level</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Estimate</fullName>
+                <default>false</default>
+                <label>Estimate</label>
+            </value>
+            <value>
+                <fullName>Activity Group</fullName>
+                <default>false</default>
+                <label>Activity Group</label>
+            </value>
+            <value>
+                <fullName>Activity</fullName>
+                <default>false</default>
+                <label>Activity</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LookupValidation</fullName>
+    <active>true</active>
+    <description
+	>Prevents associating the Resource Default record with both Estimate Template and Estimate</description>
+    <errorConditionFormula
+	>IF(AND(!ISBLANK( EstimateId__c ) ,!ISBLANK( EstimateTemplateId__c )) , true, false)</errorConditionFormula>
+    <errorDisplayField>EstimateTemplateId__c</errorDisplayField>
+    <errorMessage
+	>Resource Default can not be associated with both Estimate Template and Estimate</errorMessage>
+</ValidationRule>

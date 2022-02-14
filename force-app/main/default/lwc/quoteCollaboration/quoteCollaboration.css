@@ -1,0 +1,8 @@
+/*
+ * Provus Services Quoting
+ * Copyright (c) 2021 Provus Inc. All rights reserved.
+ */
+.user-datatable {
+  height: 140px;
+  overflow: auto;
+}

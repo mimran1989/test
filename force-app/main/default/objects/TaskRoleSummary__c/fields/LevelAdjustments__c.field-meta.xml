@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LevelAdjustments__c</fullName>
+    <externalId>false</externalId>
+    <label>Level Adjustments</label>
+    <summarizedField>Task__c.LevelAdjustment__c</summarizedField>
+    <summaryForeignKey>Task__c.RoleSummaryId__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

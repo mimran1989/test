@@ -1,0 +1,6 @@
+FROM alpine:edge
+RUN apk update
+RUN apk add --update nodejs npm
+RUN apk --no-cache upgrade && apk add --no-cache libevent chromium firefox xwininfo xvfb dbus eudev ttf-freefont fluxbox procps tzdata
+
+EXPOSE 1337 1338

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ObjectOverrideId__c</fullName>
+    <description>Lookup to override junction record</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Lookup to override junction record</inlineHelpText>
+    <label>Object Override</label>
+    <referenceTo>ObjectOverride__c</referenceTo>
+    <relationshipLabel>Object Overrides</relationshipLabel>
+    <relationshipName>ObjectValueOverrides</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

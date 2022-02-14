@@ -1,0 +1,326 @@
+<template>
+	<c-message-service class="component-state" boundary="component-state"></c-message-service>
+	<c-quote-totals class="quote-total-state"></c-quote-totals>
+	<template if:true={recordId}>
+		<lightning-quick-action-panel header="Quote Discount">
+			<div class="slds-box">
+				<div class="slds-text-heading_small slds-m-top_small slds-text-color_weak">
+					{labels.DiscountbyCategory}
+				</div>
+
+				<table
+					class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered slds-border_left slds-border_right slds-m-top_small"
+				>
+					<thead>
+						<tr class="slds-line-height_reset">
+							<template for:each={columnlabels} for:item="column">
+								<th key={column} class="" scope="col">
+									<div class="slds-truncate">{column}</div>
+								</th>
+							</template>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="slds-hint-parent">
+							<th scope="row">
+								<div class="slds-truncate">Labor Amount</div>
+							</th>
+							<td>
+								<div class="slds-truncate">
+									<lightning-formatted-number
+										value={laborRecord.CurrentAmount}
+										format-style="currency"
+										currency-code={currency}
+									></lightning-formatted-number>
+								</div>
+							</td>
+							<td>
+								<div class="slds-truncate" title={laborRecord.CurrentMargin}>
+									<c-percent-formatter
+										percent-value={laborRecord.CurrentMargin}
+									></c-percent-formatter>
+								</div>
+							</td>
+							<td>
+								<div class="slds-truncate">
+									<lightning-formatted-number
+										value={laborRecord.Cost}
+										format-style="currency"
+										currency-code={currency}
+									></lightning-formatted-number>
+								</div>
+							</td>
+
+							<td>
+								<lightning-input
+									type="number"
+									formatter="percent-fixed"
+									step="0.01"
+									variant="label-hidden"
+									name="Labor"
+									data-type={types.DISCOUNT_PERCENT}
+									value={laborRecord.DiscountPercent}
+									onchange={recalculateDiscount}
+									disabled={disableLaborDiscounts}
+								></lightning-input>
+							</td>
+							<td>
+								<lightning-input
+									type="number"
+									formatter="currency"
+									step="0.01"
+									name="Labor"
+									variant="label-hidden"
+									data-type={types.DISCOUNT_AMOUNT}
+									value={laborRecord.DiscountAmount}
+									onchange={recalculateDiscount}
+									disabled={disableLaborDiscounts}
+								></lightning-input>
+							</td>
+							<td>
+								<div class="slds-truncate">
+									<lightning-formatted-number
+										value={laborRecord.NewAmount}
+										format-style="currency"
+										currency-code={currency}
+									></lightning-formatted-number>
+								</div>
+							</td>
+							<td>
+								<div class="slds-truncate">
+									<c-percent-formatter percent-value={laborRecord.NewMargin}></c-percent-formatter>
+								</div>
+							</td>
+						</tr>
+
+						<tr class="slds-hint-parent">
+							<th scope="row">
+								<div class="slds-truncate">Addons Amount</div>
+							</th>
+							<td>
+								<div class="slds-truncate">
+									<lightning-formatted-number
+										value={addonAmount.CurrentAmount}
+										format-style="currency"
+										currency-code={currency}
+									></lightning-formatted-number>
+								</div>
+							</td>
+							<td>
+								<div class="slds-truncate">
+									<c-percent-formatter
+										percent-value={addonAmount.CurrentMargin}
+									></c-percent-formatter>
+								</div>
+							</td>
+							<td>
+								<div class="slds-truncate">
+									<lightning-formatted-number
+										value={addonAmount.Cost}
+										format-style="currency"
+										currency-code={currency}
+									></lightning-formatted-number>
+								</div>
+							</td>
+
+							<td>
+								<lightning-input
+									type="number"
+									formatter="percent-fixed"
+									step="0.01"
+									variant="label-hidden"
+									name="Addon"
+									data-type={types.DISCOUNT_PERCENT}
+									value={addonAmount.DiscountPercent}
+									onchange={recalculateDiscount}
+									disabled={disableAddonDiscounts}
+								></lightning-input>
+							</td>
+							<td>
+								<lightning-input
+									type="number"
+									formatter="currency"
+									step="0.01"
+									currency-code={currency}
+									name="Addon"
+									variant="label-hidden"
+									data-type={types.DISCOUNT_AMOUNT}
+									value={addonAmount.DiscountAmount}
+									onchange={recalculateDiscount}
+									disabled={disableAddonDiscounts}
+								></lightning-input>
+							</td>
+							<td>
+								<div class="slds-truncate">
+									<lightning-formatted-number
+										value={addonAmount.NewAmount}
+										format-style="currency"
+										currency-code={currency}
+									></lightning-formatted-number>
+								</div>
+							</td>
+							<td>
+								<div class="slds-truncate">
+									<c-percent-formatter percent-value={addonAmount.NewMargin}></c-percent-formatter>
+								</div>
+							</td>
+						</tr>
+
+						<tr class="slds-hint-parent">
+							<th scope="row">
+								<div class="slds-truncate">Totals</div>
+							</th>
+							<td>
+								<div class="slds-truncate">
+									<lightning-formatted-number
+										value={totalRecord.CurrentAmount}
+										format-style="currency"
+										currency-code={currency}
+									></lightning-formatted-number>
+								</div>
+							</td>
+							<td>
+								<div class="slds-truncate">
+									<c-percent-formatter
+										percent-value={totalRecord.CurrentMargin}
+									></c-percent-formatter>
+								</div>
+							</td>
+							<td>
+								<div class="slds-truncate">
+									<lightning-formatted-number
+										value={totalRecord.Cost}
+										format-style="currency"
+										currency-code={currency}
+									></lightning-formatted-number>
+								</div>
+							</td>
+
+							<td>
+								<div class="slds-truncate">{totalRecord.DiscountPercent}%</div>
+							</td>
+							<td>
+								<lightning-formatted-number
+									value={totalRecord.DiscountAmount}
+									format-style="currency"
+									currency-code={currency}
+								></lightning-formatted-number>
+							</td>
+							<td>
+								<div class="slds-truncate">
+									<lightning-formatted-number
+										value={totalRecord.NewAmount}
+										format-style="currency"
+										currency-code={currency}
+									></lightning-formatted-number>
+								</div>
+							</td>
+							<td>
+								<div class="slds-truncate">
+									<c-percent-formatter percent-value={totalRecord.NewMargin}></c-percent-formatter>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<template if:true={quoteTotal}>
+					<div class="slds-text-heading_small slds-m-top_small slds-text-color_weak">
+						{labels.DiscountatQuoteLevel}
+					</div>
+
+					<table
+						class="slds-table slds-m-top_small slds-table_cell-buffer slds-table_bordered slds-table_col-bordered slds-border_left slds-border_right"
+					>
+						<thead>
+							<tr class="slds-line-height_reset">
+								<template for:each={quoteColumnlabels} for:item="column">
+									<th key={column} class="" scope="col">
+										<div class="slds-truncate">{column}</div>
+									</th>
+								</template>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="slds-hint-parent">
+								<th scope="row">
+									<div class="slds-truncate">Quote Total</div>
+								</th>
+								<td>
+									<div class="slds-truncate">
+										<lightning-formatted-number
+											value={quoteTotal.CurrentAmount}
+											format-style="currency"
+											currency-code={currency}
+										></lightning-formatted-number>
+									</div>
+								</td>
+								<td>
+									<div class="slds-truncate">{quoteTotal.CurrentDiscount}%</div>
+								</td>
+								<td>
+									<div class="slds-truncate">
+										<c-percent-formatter
+											percent-value={quoteTotal.CurrentMargin}
+										></c-percent-formatter>
+									</div>
+								</td>
+								<td>
+									<lightning-input
+										type="number"
+										formatter="percent-fixed"
+										step="0.01"
+										variant="label-hidden"
+										name="QuoteTotal"
+										data-type={types.DISCOUNT_PERCENT}
+										value={quoteTotal.DiscountPercent}
+										disabled={disableQuoteDiscounts}
+										onchange={recalculateDiscount}
+									></lightning-input>
+								</td>
+								<td>
+									<lightning-input
+										type="number"
+										formatter="currency"
+										step="0.01"
+										currency-code={currency}
+										name="QuoteTotal"
+										variant="label-hidden"
+										data-type={types.DISCOUNT_AMOUNT}
+										value={quoteTotal.DiscountAmount}
+										onchange={recalculateDiscount}
+										disabled={disableQuoteDiscounts}
+									></lightning-input>
+								</td>
+								<td>
+									<div class="slds-truncate" title={quoteTotal.NewAmount}>
+										<lightning-formatted-number
+											value={quoteTotal.NewAmount}
+											format-style="currency"
+											currency-code={currency}
+										></lightning-formatted-number>
+									</div>
+								</td>
+								<td>
+									<div class="slds-truncate" title={quoteTotal.NewMargin}>
+										<c-percent-formatter percent-value={quoteTotal.NewMargin}></c-percent-formatter>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</template>
+			</div>
+
+			<div slot="footer">
+				<lightning-button
+					variant="neutral"
+					label="Cancel"
+					class="slds-p-right_x-small"
+					onclick={closeAction}
+				></lightning-button>
+				<lightning-button variant="brand" label="Save" onclick={saveAction}></lightning-button>
+			</div>
+		</lightning-quick-action-panel>
+	</template>
+</template>

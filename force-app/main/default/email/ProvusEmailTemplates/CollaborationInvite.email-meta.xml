@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>The email sent to the collaborator when invited by a quote owner</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>CollaborationInvite</name>
+    <style>none</style>
+    <subject>You&apos;ve been invited to collaborate</subject>
+    <textOnly>Hi {0},
+
+Please click the following link to begin collaboration on Quote Section: {1}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

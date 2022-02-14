@@ -1,0 +1,107 @@
+<template>
+	<div class="slds-grid slds-scrollable_x">
+		<template for:each={scenarioRecords} for:item="scenario">
+			<div key={scenario.Id} class="slds-col slds-size_1-of-3 slds-p-around_xxx-small">
+				<article class="slds-card">
+					<div class="slds-card__header slds-grid">
+						<header class="slds-media slds-media_center slds-has-flexi-truncate">
+							<div class="slds-media__figure">
+								<lightning-icon
+									icon-name="custom:custom29"
+									alternative-text="Quote"
+									size="medium"
+								></lightning-icon>
+							</div>
+							<div class="slds-media__body">
+								<div class="slds-grid slds-wrap">
+									<div class="slds-col slds-size_3-of-5">
+										<div class="slds-col slds-size_1-of-1">
+											<lightning-formatted-text
+												value={scenario.RecordType}
+											></lightning-formatted-text>
+										</div>
+										<div class="slds-col slds-size_1-of-1">
+											<h4 class="slds-card__header-title">
+												<lightning-formatted-url
+													value={scenario.IdURL}
+													label={scenario.Name}
+													target="_self"
+												></lightning-formatted-url>
+											</h4>
+										</div>
+									</div>
+									<div class="slds-col slds-size_2-of-5">
+										<div class="slds-grid slds-wrap">
+											<div class="slds-col slds-size_1-of-1">
+												<h4>Created Date</h4>
+											</div>
+											<div class="slds-col slds-size_1-of-1">
+												<lightning-formatted-date-time
+													value={scenario.CreatedDate}
+													year="numeric"
+													month="numeric"
+													day="numeric"
+													hour="2-digit"
+													minute="2-digit"
+													hour12="true"
+												></lightning-formatted-date-time>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</header>
+					</div>
+					<div class="slds-card__body slds-card__body_inner">
+						<div class="slds-grid slds-wrap">
+							<div class="slds-col slds-size_1-of-3 slds-p-around_xxx-small">
+								<div class="slds-grid slds-wrap">
+									<div class="slds-col slds-size_1-of-1">
+										<h4>Amount</h4>
+									</div>
+									<div class="slds-col slds-size_1-of-1">
+										<lightning-formatted-number
+											value={scenario.totalAmount}
+											format-style="currency"
+											currency-code="USD"
+											maximum-fraction-digits="2"
+										></lightning-formatted-number>
+									</div>
+								</div>
+							</div>
+							<div class="slds-col slds-size_1-of-3 slds-p-around_xxx-small">
+								<div class="slds-grid slds-wrap">
+									<div class="slds-col slds-size_1-of-1">
+										<h4>Margin</h4>
+									</div>
+									<div class="slds-col slds-size_1-of-1">
+										<lightning-formatted-number
+											value={scenario.marginPercent}
+											format-style="percent"
+											maximum-fraction-digits="2"
+										></lightning-formatted-number>
+									</div>
+								</div>
+							</div>
+							<div class="slds-col slds-size_1-of-3 slds-p-around_xxx-small">
+								<div class="slds-grid slds-wrap">
+									<div class="slds-col slds-size_1-of-1">
+										<h4>Cost</h4>
+									</div>
+									<div class="slds-col slds-size_1-of-1">
+										<lightning-formatted-number
+											value={scenario.totalCost}
+											format-style="currency"
+											currency-code="USD"
+											maximum-fraction-digits="2"
+										></lightning-formatted-number>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</article>
+			</div>
+		</template>
+	</div>
+</template>

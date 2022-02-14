@@ -1,0 +1,63 @@
+<template>
+	<c-message-service></c-message-service>
+	<template if:false={resourceSelections}>
+		<div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+			<span class="slds-assistive-text">Loading</span>
+			<div class="slds-spinner__dot-a"></div>
+			<div class="slds-spinner__dot-b"></div>
+		</div>
+	</template>
+	<template if:true={recordId}>
+		<lightning-quick-action-panel header={ResourceDefaultsHeaderLabel}>
+			<div>
+				<table class="slds-table slds-table_cell-buffer slds-m-bottom_x-large">
+					<thead class="slds-assistive-text"></thead>
+					<tbody>
+						<template for:each={resourceSelections} for:item="resourceSelection" for:index="index">
+							<tr class="slds-hint-parent" key={resourceSelection.role}>
+								<td data-label="Resource Role" scope="row">
+									<p>
+										<lightning-formatted-text
+											value={resourceSelection.role}
+										></lightning-formatted-text>
+									</p>
+								</td>
+								<td scope="row">
+									<lightning-combobox
+										name="Skill-Level"
+										placeholder="Select Skill"
+										value={resourceSelection.skillLevel}
+										options={resourceSelection.skillLevels}
+										onchange={handleSkillSelection}
+										data-index={index}
+									></lightning-combobox>
+								</td>
+								<td scope="row">
+									<lightning-combobox
+										name="Locations"
+										placeholder="Select Location"
+										value={resourceSelection.location}
+										options={resourceSelection.locations}
+										onchange={handleLocationSelection}
+										data-index={index}
+										disabled={resourceSelection.noSkill}
+									></lightning-combobox>
+								</td>
+							</tr>
+						</template>
+					</tbody>
+				</table>
+			</div>
+
+			<div slot="footer">
+				<lightning-button
+					variant="neutral"
+					label="Cancel"
+					class="slds-p-right_x-small"
+					onclick={closeAction}
+				></lightning-button>
+				<lightning-button variant="brand" label="Save" onclick={savePreferences}></lightning-button>
+			</div>
+		</lightning-quick-action-panel>
+	</template>
+</template>

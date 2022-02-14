@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>L1</fullName>
+        <default>false</default>
+        <label>L1</label>
+    </customValue>
+    <customValue>
+        <fullName>L2</fullName>
+        <default>false</default>
+        <label>L2</label>
+    </customValue>
+    <customValue>
+        <fullName>L3</fullName>
+        <default>false</default>
+        <label>L3</label>
+    </customValue>
+    <masterLabel>Skill Levels</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

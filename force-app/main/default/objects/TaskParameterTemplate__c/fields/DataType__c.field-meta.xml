@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DataType__c</fullName>
+    <externalId>false</externalId>
+    <label>Data Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Checkbox</fullName>
+                <default>false</default>
+                <label>Checkbox</label>
+            </value>
+            <value>
+                <fullName>Integer</fullName>
+                <default>false</default>
+                <label>Integer</label>
+            </value>
+            <value>
+                <fullName>Integer Tiers</fullName>
+                <default>false</default>
+                <label>Integer Tiers</label>
+            </value>
+            <value>
+                <fullName>Picklist</fullName>
+                <default>false</default>
+                <label>Picklist</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

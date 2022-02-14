@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ResourceRole</fullName>
+    <active>true</active>
+    <label>Resource Role</label>
+    <picklistValues>
+        <picklist>Family</picklist>
+        <values>
+            <fullName>None</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Group__c</picklist>
+        <values>
+            <fullName>%2ENet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AI %2B Machine Learning</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AWS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Amazon Analytics Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Amazon Application Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Amazon Computer Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Amazon Database Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Amazon Network Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Amazon Storage Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Amazon Web Services Basics</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Amazon Web Services Resources</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Analytics</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Azure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Blockchain</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CRM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cloud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Compute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Containers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Databases</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DevOps</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Developer Tools</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ERP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GCP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hybrid %2B Multicloud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IT Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IT Support</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Identity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Integration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Internet of Things</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Java</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mainframe Applications</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Management and Governance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing Cloud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Media</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Migration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mixed Reality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Networking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oracle Cloud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oracle Infrastructure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oracle Live</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAP ACTIVATE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAP ARIBA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAP BUSINESS OBJECTS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAP C%2F4 HANA CUSTOMER EXP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAP CLOUD PLATFORM Integration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAP Implementation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAP S%2F4 HANA CLOUD ERP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAP SUCCESS FACTORS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SFDC Integration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Cloud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Salesforce Implementation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Security</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service Cloud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Software</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Storage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Web</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Web %26 Mobile Apps</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Windows Virtual Desktop</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Practice__c</picklist>
+        <values>
+            <fullName>AWS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Architect</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CI%2FCD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cloud Consulting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Custom Development</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DevOps</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GCP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Java</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oracle</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outsourcing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Python</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SFDC</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>QuantityUnitOfMeasure</picklist>
+        <values>
+            <fullName>Each</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

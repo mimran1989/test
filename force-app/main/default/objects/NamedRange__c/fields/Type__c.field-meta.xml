@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>User Defined</fullName>
+                <default>false</default>
+                <label>User Defined</label>
+            </value>
+            <value>
+                <fullName>Quote</fullName>
+                <default>false</default>
+                <label>Quote</label>
+            </value>
+            <value>
+                <fullName>Quote Labor</fullName>
+                <default>false</default>
+                <label>Quote Labor</label>
+            </value>
+            <value>
+                <fullName>Quote Ancillaries</fullName>
+                <default>false</default>
+                <label>Quote Ancillaries</label>
+            </value>
+            <value>
+                <fullName>Quote Item</fullName>
+                <default>false</default>
+                <label>Quote Item</label>
+            </value>
+            <value>
+                <fullName>Quote Period</fullName>
+                <default>false</default>
+                <label>Quote Period</label>
+            </value>
+            <value>
+                <fullName>Quote Period Group</fullName>
+                <default>false</default>
+                <label>Quote Period Group</label>
+            </value>
+            <value>
+                <fullName>Quote Item Period Group</fullName>
+                <default>false</default>
+                <label>Quote Item Period Group</label>
+            </value>
+            <value>
+                <fullName>Quote Section</fullName>
+                <default>false</default>
+                <label>Quote Section</label>
+            </value>
+            <value>
+                <fullName>Project Phase</fullName>
+                <default>false</default>
+                <label>Project Phase</label>
+            </value>
+            <value>
+                <fullName>Quote Item Project Phase</fullName>
+                <default>false</default>
+                <label>Quote Item Project Phase</label>
+            </value>
+            <value>
+                <fullName>Section Period</fullName>
+                <default>false</default>
+                <label>Section Period</label>
+            </value>
+            <value>
+                <fullName>Section Phase</fullName>
+                <default>false</default>
+                <label>Section Phase</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

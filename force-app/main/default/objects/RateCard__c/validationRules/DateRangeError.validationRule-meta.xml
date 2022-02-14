@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DateRangeError</fullName>
+    <active>true</active>
+    <description>Rate Card Effective/Expiration Date Range Error</description>
+    <errorConditionFormula>EffectiveDate__c  &gt;=  ExpirationDate__c</errorConditionFormula>
+    <errorDisplayField>EffectiveDate__c</errorDisplayField>
+    <errorMessage
+	>The Rate Card&apos;s effective date cannot be greater than Rate Card&apos;s expiration date</errorMessage>
+</ValidationRule>

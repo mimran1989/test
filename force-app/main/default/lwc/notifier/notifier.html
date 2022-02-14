@@ -1,0 +1,22 @@
+<!--
+  ~ Provus Services Quoting
+  ~ Copyright (c) 2021 Provus Inc. All rights reserved.
+  -->
+<template>
+	<c-event-listener channel={channel} handler={onMessage}></c-event-listener>
+	<template if:true={isVisible}>
+		<div class="slds-notify_container" style="top: 90px">
+			<div class="slds-notify slds-notify_toast slds-theme_info slds-transition-hide" role="status">
+				<span class="slds-assistive-text">Quote Updated</span>
+				<div class="slds-notify__content">
+					<h2 class="slds-text-heading_small">
+						{toastMessage}&nbsp;<a href="#">{LABEL_REVIEW}</a> &nbsp;<a onclick={handleIgnore}
+							>{LABEL_IGNORE}</a
+						>
+						&nbsp;<a onclick={handleIgnoreAll}>{LABEL_IGNORE_ALL}</a>
+					</h2>
+				</div>
+			</div>
+		</div>
+	</template>
+</template>

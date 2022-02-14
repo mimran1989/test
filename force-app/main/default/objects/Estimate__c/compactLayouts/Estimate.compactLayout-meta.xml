@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Estimate</fullName>
+    <fields>Name</fields>
+    <fields>TotalEstimatedDuration__c</fields>
+    <fields>ProductId__c</fields>
+    <fields>ServiceId__c</fields>
+    <label>Estimate</label>
+</CompactLayout>

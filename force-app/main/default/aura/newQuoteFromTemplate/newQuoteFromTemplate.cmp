@@ -1,0 +1,17 @@
+<aura:component
+	implements="flexipage:availableForAllPageTypes, lightning:isUrlAddressable"
+	access="global"
+>
+	<aura:attribute name="quoteId" type="Id" />
+	<aura:attribute name="selectedTemplateId" type="Id" />
+
+	<div class="slds-modal__container">
+		<lightning:card title="Select Template to Create Quote">
+			<lightning:layout>
+				<lightning:layoutItem>
+					<c:createQuoteFromTemplate />
+				</lightning:layoutItem>
+			</lightning:layout>
+		</lightning:card>
+	</div>
+</aura:component>

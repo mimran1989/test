@@ -1,0 +1,44 @@
+<template>
+	<lightning-record-edit-form object-api-name={COLA_RATE_SHEET_OBJECT.objectApiName}>
+		<header class="slds-modal__header">
+			<h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+				{LABEL_COLA_RATE_SHEET_CLONE_HEADER}
+			</h2>
+		</header>
+		<div class="slds-modal__content slds-var-p-around_medium">
+			<div class="slds-grid slds-wrap">
+				<div class="slds-col slds-size_1-of-1">
+					<lightning-input-field
+						field-name={COLA_RATE_SHEET_OBJECT.Name}
+						name="Name"
+						value={colaRateSheetData.Name}
+						onchange={handleChange}
+						required="true"
+					></lightning-input-field>
+				</div>
+				<div class="slds-col slds-size_1-of-1">
+					<lightning-input-field
+						field-name={COLA_RATE_SHEET_OBJECT.yearOverYearRate}
+						name="yearOverYearRate"
+						value={colaRateSheetData.yearOverYearRate}
+						onchange={handleChange}
+						required="true"
+					></lightning-input-field>
+				</div>
+			</div>
+		</div>
+		<footer class="slds-modal__footer">
+			<lightning-button
+				variant="neutral"
+				label={LABEL_CANCEL_BUTTON}
+				onclick={closeAction}
+			></lightning-button>
+			<lightning-button
+				variant="brand"
+				label={LABEL_CLONE_BUTTON}
+				class="slds-var-m-left_x-small"
+				onclick={doClone}
+			></lightning-button>
+		</footer>
+	</lightning-record-edit-form>
+</template>

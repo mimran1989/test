@@ -1,0 +1,616 @@
+<template>
+	<div align="right"></div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_2-of-3">
+			<span class="slds-m-left_large">
+				<span onclick={showAG}>
+					<lightning-icon
+						size="small"
+						icon-name="standard:work_type_group"
+						alternative-text="Audio file"
+						class="slds-m-left_xx-small"
+						title="Show Activity Group"
+					></lightning-icon
+				></span>
+				<span onclick={showActivity}>
+					<lightning-icon
+						size="small"
+						icon-name="standard:work_type"
+						alternative-text="Audio file"
+						class="slds-m-left_xx-small"
+						title="Show Activities"
+					></lightning-icon
+				></span>
+				<span onclick={showTasks}>
+					<lightning-icon
+						size="small"
+						icon-name="standard:task"
+						alternative-text="Audio file"
+						class="slds-m-left_xx-small"
+						title="Show Tasks"
+					></lightning-icon
+				></span>
+			</span>
+		</div>
+		<div class="slds-col slds-size_1-of-3">
+			<span>
+				<lightning-button
+					label="Resource Summary"
+					variant="brand"
+					icon-name="utility:summarydetail"
+					class="slds-var-m-right_x-large slds-float_right"
+					onclick={showEstimateResourceSummary}
+				></lightning-button>
+
+				<lightning-button
+					label="Scope Summary"
+					variant="brand"
+					class="slds-var-m-right_x-large slds-float_right"
+					onclick={showSourceSummary}
+				></lightning-button>
+			</span>
+		</div>
+	</div>
+
+	<div class="slds-p-around_medium lgc-bg">
+		<lightning-tree-grid
+			columns={gridColumns}
+			data={gridData}
+			key-field="ActivityGroupId"
+			hide-checkbox-column
+			expanded-rows={gridExpandedRows}
+			onrowaction={handleRowAction}
+			onheaderaction={handleHeaderAction}
+			is-loading={istreegridload}
+		>
+		</lightning-tree-grid>
+	</div>
+
+	<template if:true={openModal}>
+		<div class="slds-modal slds-fade-in-open slds-backdrop">
+			<div class="slds-modal__container">
+				<div class="slds-modal__header">
+					<lightning-button-icon
+						icon-name="utility:close"
+						alternative-text="Close this window"
+						size="large"
+						variant="bare-inverse"
+						onclick={closeModal}
+						class="slds-modal__close"
+					>
+					</lightning-button-icon>
+					<h2>
+						<lightning-icon icon-name="standard:work_type_group" size="small"></lightning-icon>
+						&nbsp;{taskDetails.Level1}&nbsp;
+						<lightning-icon icon-name="standard:work_type" size="small"></lightning-icon
+						>&nbsp;{taskDetails.Level2}&nbsp;
+						<lightning-icon icon-name="standard:task" size="small"></lightning-icon>&nbsp;
+						{taskDetails.ActivityGroup}
+					</h2>
+				</div>
+				<div class="slds-modal__content slds-p-around_medium">
+					<div class="c-container">
+						<lightning-layout multiple-rows="true">
+							<lightning-layout-item padding="around-small" size="12">
+								<div class="header-column">
+									<lightning-input
+										type="checkbox"
+										label="Not Applicable"
+										checked={taskDetails.NotApplicable}
+										onchange={NotApplicable}
+										field-level-help="If Not Applicable is selected, the duration values calculated on the Task will be cleaned up."
+									>
+									</lightning-input>
+								</div>
+							</lightning-layout-item>
+							<lightning-layout-item padding="around-small" size="2">
+								<div class="header-column">
+									<lightning-input
+										type="number"
+										label="Calculated Duration"
+										value={taskDetails.CalculatedDuration}
+										read-only="true"
+									>
+									</lightning-input>
+								</div>
+							</lightning-layout-item>
+							<lightning-layout-item padding="around-small" size="2">
+								<div class="header-column">
+									<lightning-input
+										type="number"
+										name="input2"
+										label="Duration Adjustment (+/-)"
+										value={taskDetails.AdjustedDuration}
+										onchange={handleAdjustmentAmountChange}
+									>
+									</lightning-input>
+								</div>
+							</lightning-layout-item>
+							<lightning-layout-item padding="around-small" size="3">
+								<div class="header-column">
+									<lightning-textarea
+										label="Adjustment Reason"
+										value={taskDetails.AdjustmentReason}
+										onchange={handleAdjustmentReason}
+									></lightning-textarea>
+								</div>
+							</lightning-layout-item>
+							<lightning-layout-item padding="around-small" size="2">
+								<div class="header-column">
+									<lightning-input
+										type="number"
+										label="Estimated Duration"
+										value={taskDetails.EstimatedDuration}
+										read-only="true"
+									></lightning-input>
+								</div>
+							</lightning-layout-item>
+							<lightning-layout-item padding="around-small" size="3">
+								<div class="header-column">
+									<div class="slds-form-element">
+										<label class="slds-form-element__label" for="input-01">Role</label>
+										<div class="slds-form-element__control">{taskDetails.Resourcerole}</div>
+									</div>
+								</div>
+							</lightning-layout-item>
+						</lightning-layout>
+					</div>
+					<div class="c-container">
+						<lightning-layout multiple-rows="true">
+							<template for:each={taskFieldDef} for:item="field">
+								<template if:true={field.isNumberField}>
+									<lightning-layout-item
+										key={field.FieldId}
+										padding="around-small"
+										size="12"
+										small-device-size="6"
+										medium-device-size="6"
+									>
+										<lightning-input
+											data-related-list-question="false"
+											name={field.FieldId}
+											type="number"
+											label={field.FieldName}
+											value={field.selectedValue}
+											onchange={handleChange}
+											field-level-help={field.Description}
+										>
+										</lightning-input>
+									</lightning-layout-item>
+								</template>
+								<template if:true={field.isPickList}>
+									<lightning-layout-item
+										key={field.FieldId}
+										padding="around-small"
+										size="12"
+										small-device-size="6"
+										medium-device-size="6"
+									>
+										<lightning-combobox
+											name={field.FieldId}
+											label={field.FieldName}
+											value={field.selectedValue}
+											options={field.PicklistValues}
+											onchange={handleChange}
+											field-level-help={field.Description}
+										>
+										</lightning-combobox>
+									</lightning-layout-item>
+								</template>
+								<template if:true={field.isBoolean}>
+									<lightning-layout-item
+										key={field.FieldId}
+										padding="around-small"
+										size="12"
+										small-device-size="6"
+										medium-device-size="6"
+									>
+										<lightning-input
+											data-related-list-question="false"
+											class="slds-m-top_medium"
+											name={field.FieldId}
+											type={field.Datatype}
+											label={field.FieldName}
+											onchange={handleChange}
+											field-level-help={field.Description}
+											checked={field.selectedValue}
+										>
+										</lightning-input>
+									</lightning-layout-item>
+								</template>
+								<template if:true={field.isIntegerTiers}>
+									<lightning-layout-item
+										key={field.FieldId}
+										padding="around-small"
+										size="12"
+										small-device-size="6"
+										medium-device-size="6"
+									>
+										<lightning-input
+											data-related-list-question="false"
+											name={field.FieldId}
+											type="number"
+											label={field.FieldName}
+											onchange={handleChange}
+											field-level-help={field.Description}
+											value={field.selectedValue}
+										>
+										</lightning-input>
+									</lightning-layout-item>
+									<lightning-datatable
+										key={field.FieldId}
+										key-field={field.TaskParameterValueId}
+										data={field.IntegerTiers}
+										columns={integerTierParameterColumns}
+										hide-checkbox-column="true"
+									>
+									</lightning-datatable>
+								</template>
+							</template>
+						</lightning-layout>
+					</div>
+				</div>
+				<div class="slds-modal__footer">
+					<lightning-button
+						icon-name="utility:close"
+						label={Label.CLOSE}
+						variant="neutral"
+						onclick={saveTask}
+						class="slds-m-left_medium"
+					></lightning-button>
+					<template if:true={taskDetails.beforeExists}>
+						<lightning-button
+							icon-name="utility:chevronleft"
+							label="Previous"
+							variant="neutral"
+							onclick={getPreviousSaveTask}
+							class="slds-m-left_medium"
+						>
+						</lightning-button>
+					</template>
+					<template if:true={taskDetails.afterExists}>
+						<lightning-button
+							icon-name="utility:chevronright"
+							label="Next"
+							variant="neutral"
+							onclick={getnextSaveTask}
+							class="slds-m-left_medium"
+						>
+						</lightning-button>
+					</template>
+				</div>
+			</div>
+		</div>
+	</template>
+	<!--Resource Summary popup for Estimate-->
+	<template if:true={openEstimateResourceSummary}>
+		<div class="slds-modal slds-fade-in-open slds-backdrop">
+			<div class="slds-modal__container">
+				<div class="slds-modal__header">
+					<lightning-button-icon
+						icon-name="utility:close"
+						alternative-text="Close this window"
+						size="large"
+						variant="bare-inverse"
+						onclick={closeModal}
+						class="slds-modal__close"
+					>
+					</lightning-button-icon>
+					<h2>
+						<lightning-icon icon-name="standard:operating_hours" size="small"></lightning-icon>
+						&nbsp; {estimateName}
+					</h2>
+				</div>
+				<div class="slds-modal__content slds-p-around_medium">
+					<!--					Hide Add Resource at this level for now -->
+					<!--					<lightning-button-->
+					<!--						label={Label.ADD_RESOURCE-->
+					<!--						title={Label.ADD_RESOURCE-->
+					<!--						onclick={addResource}-->
+					<!--						class="slds-m-left_x-small"-->
+					<!--					></lightning-button>-->
+					<!--Add New Resource Popup-->
+					<template if:true={addResourcePanel}>
+						<!-- Modal/Popup Box LWC starts here -->
+						<section
+							role="dialog"
+							tabindex="-1"
+							aria-labelledby="modal-heading-02"
+							aria-modal="true"
+							aria-describedby="modal-content-id-2"
+							class="slds-modal slds-fade-in-open"
+						>
+							<div class="slds-modal__container">
+								<!-- Modal/Popup Box LWC header here -->
+								<header class="slds-modal__header">
+									<button
+										class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+										title={Label.CLOSE}
+										onclick={closeResourceModal}
+									>
+										<lightning-icon
+											icon-name="utility:close"
+											alternative-text={Label.CLOSE}
+											variant="inverse"
+											size="small"
+										></lightning-icon>
+										<span class="slds-assistive-text">Close</span>
+									</button>
+									<h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">
+										{Label.ADD_RESOURCE}
+									</h2>
+								</header>
+								<!-- Modal/Popup Box LWC body starts here -->
+								<div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+									<c-custom-lookup
+										object-name="Product2"
+										activity-ag-record-id={recordId}
+										onselected={SelectedResource}
+										required="true"
+										level="Estimate"
+										filter-field="Name"
+										label="Resource"
+										placeholder="Search Resource"
+										icon-name="standard:product"
+									>
+									</c-custom-lookup>
+									<lightning-input
+										type="number"
+										value={newAdjustedAmount}
+										label={Label.LEVEL_ADJUSTMENT}
+										onchange={updateNewResourceAdjst}
+									>
+									</lightning-input>
+								</div>
+								<!-- Modal/Popup Box LWC footer starts here -->
+								<footer class="slds-modal__footer">
+									<button
+										class="slds-button slds-button_neutral"
+										onclick={closeResourceModal}
+										title="Cancel"
+									>
+										{Label.CANCEL}
+									</button>
+									<button class="slds-button slds-button_brand" onclick={saveResource} title="OK">
+										{Label.SAVE}
+									</button>
+								</footer>
+							</div>
+						</section>
+						<div class="slds-backdrop slds-backdrop_open"></div>
+					</template>
+
+					<template if:true={resourceSummaryExists}>
+						<div style="height: 300px">
+							<lightning-datatable
+								key-field="Id"
+								data={data}
+								columns={columns}
+								draft-values={draftValues}
+								suppress-bottom-bar={suppress}
+								onsave={handleSave}
+								hide-checkbox-column="false"
+								oncellchange={handleCellChange}
+								sorted-by={sortBy}
+								sorted-direction={sortDirection}
+								onsort={handleResourceSummaryData}
+							>
+							</lightning-datatable>
+						</div>
+					</template>
+					<template if:false={resourceSummaryExists}>
+						<div align="Center"></div>
+					</template>
+				</div>
+				<div class="slds-modal__footer">
+					<lightning-button
+						icon-name="utility:close"
+						label={Label.CLOSE}
+						variant="brand"
+						onclick={closeModal}
+						class="slds-m-left_medium"
+					></lightning-button>
+				</div>
+			</div>
+		</div>
+	</template>
+	<template if:true={openResourceSummary}>
+		<div class="slds-modal slds-fade-in-open slds-backdrop">
+			<div class="slds-modal__container">
+				<div class="slds-modal__header">
+					<lightning-button-icon
+						icon-name="utility:close"
+						alternative-text="Close this window"
+						size="large"
+						variant="bare-inverse"
+						onclick={closeModal}
+						class="slds-modal__close"
+					>
+					</lightning-button-icon>
+					<h2>
+						<lightning-icon icon-name={taskDetails.IconType} size="small"></lightning-icon> &nbsp;
+						{taskDetails.ActivityGroup}
+					</h2>
+				</div>
+				<div class="slds-modal__content slds-p-around_medium">
+					<lightning-layout multiple-rows="true">
+						<lightning-layout-item
+							padding="around-small"
+							size="2"
+							small-device-size="6"
+							medium-device-size="4"
+						>
+							<div class="header-column">
+								<lightning-button
+									label={Label.ADD_RESOURCE}
+									title={Label.ADD_RESOURCE}
+									onclick={addResource}
+									class="slds-m-left_x-small"
+								></lightning-button>
+							</div>
+						</lightning-layout-item>
+						<lightning-layout-item
+							padding="around-small"
+							size="2"
+							medium-device-size="4"
+							small-device-size="6"
+						>
+							<div class="header-column">
+								<lightning-input
+									type="checkbox"
+									label="Not Applicable"
+									checked={taskDetails.NotApplicable}
+									onchange={NotApplicable}
+									field-level-help="If Not Applicable is selected at the Avtivity Group/Activity Level, the duration values calculated on the Task under it, will be cleaned up."
+								>
+								</lightning-input>
+							</div>
+						</lightning-layout-item>
+					</lightning-layout>
+
+					<template if:true={addResourcePanel}>
+						<!-- Modal/Popup Box LWC starts here -->
+						<section
+							role="dialog"
+							tabindex="-1"
+							aria-labelledby="modal-heading-01"
+							aria-modal="true"
+							aria-describedby="modal-content-id-1"
+							class="slds-modal slds-fade-in-open"
+						>
+							<div class="slds-modal__container">
+								<!-- Modal/Popup Box LWC header here -->
+								<header class="slds-modal__header">
+									<button
+										class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+										title={Label.CLOSE}
+										onclick={closeResourceModal}
+									>
+										<lightning-icon
+											icon-name="utility:close"
+											alternative-text={Label.CLOSE}
+											variant="inverse"
+											size="small"
+										></lightning-icon>
+										<span class="slds-assistive-text">Close</span>
+									</button>
+									<h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+										{Label.ADD_RESOURCE}
+									</h2>
+								</header>
+								<!-- Modal/Popup Box LWC body starts here -->
+								<div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+									<c-custom-lookup
+										object-name="Product2"
+										activity-ag-record-id={taskDetails.ActivityGroupId}
+										onselected={SelectedResource}
+										required="true"
+										level={taskDetails.Type}
+										filter-field="Name"
+										label="Resource"
+										placeholder="Search Resource"
+										icon-name="standard:product"
+									></c-custom-lookup>
+									<lightning-input
+										type="number"
+										value={newAdjustedAmount}
+										label={Label.LEVEL_ADJUSTMENT}
+										onchange={updateNewResourceAdjst}
+									>
+									</lightning-input>
+								</div>
+								<!-- Modal/Popup Box LWC footer starts here -->
+								<footer class="slds-modal__footer">
+									<button
+										class="slds-button slds-button_neutral"
+										onclick={closeResourceModal}
+										title="Cancel"
+									>
+										{Label.CANCEL}
+									</button>
+									<button class="slds-button slds-button_brand" onclick={saveResource} title="OK">
+										{Label.SAVE}
+									</button>
+								</footer>
+							</div>
+						</section>
+						<div class="slds-backdrop slds-backdrop_open"></div>
+					</template>
+					<template if:true={resourceSummaryExists}>
+						<div style="height: 300px">
+							<lightning-datatable
+								key-field="Id"
+								data={data}
+								columns={columns}
+								draft-values={draftValues}
+								suppress-bottom-bar={suppress}
+								onsave={handleSave}
+								hide-checkbox-column="false"
+								oncellchange={handleCellChange}
+							>
+							</lightning-datatable>
+						</div>
+					</template>
+					<template if:false={resourceSummaryExists}>
+						<div align="Center"></div>
+					</template>
+				</div>
+				<div class="slds-modal__footer">
+					<lightning-button
+						icon-name="utility:close"
+						label={Label.CLOSE}
+						variant="brand"
+						onclick={saveAndClose}
+						class="slds-m-left_medium"
+					></lightning-button>
+				</div>
+			</div>
+		</div>
+	</template>
+	<template if:true={showSource}>
+		<div class="slds-modal slds-fade-in-open slds-backdrop">
+			<div class="slds-modal__container">
+				<div class="slds-modal__header">
+					<lightning-button-icon
+						icon-name="utility:close"
+						alternative-text="Close this window"
+						size="large"
+						variant="bare-inverse"
+						onclick={closeModal}
+						class="slds-modal__close"
+					>
+					</lightning-button-icon>
+					<h2
+						id="modal-heading-12"
+						class="slds-text-heading_medium slds-hyphenate slds-text-color_weak"
+					>
+						Scope Summary
+					</h2>
+				</div>
+				<div class="slds-modal__content slds-p-around_medium">
+					<div class="c-container tableScroll">
+						<lightning-datatable
+							key-field="Id"
+							data={sourceData}
+							columns={sourceColumns}
+							sorted-by={sortBy}
+							sorted-direction={sortDirection}
+							onsort={handleSortSourceSummaryData}
+							hide-checkbox-column="true"
+						>
+						</lightning-datatable>
+					</div>
+				</div>
+				<div class="slds-modal__footer">
+					<lightning-button
+						icon-name="utility:close"
+						label={Label.CLOSE}
+						variant="brand"
+						onclick={closeModal}
+						class="slds-m-left_medium"
+					></lightning-button>
+				</div>
+			</div>
+		</div>
+	</template>
+</template>

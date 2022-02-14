@@ -1,0 +1,28 @@
+.noSelect {
+  user-select: none !important;
+}
+
+.show-total-amount {
+  display: inline-block;
+}
+
+.action-container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  margin-bottom: 10px;
+}
+
+.action-container-left {
+  display: grid;
+  grid-template-columns: 34px 34px 34px 34px;
+  column-gap: 5px;
+}
+
+.action-container-right {
+  justify-self: end;
+}
+
+.gridContainer {
+  overflow: hidden;
+  margin-top: 0;
+}

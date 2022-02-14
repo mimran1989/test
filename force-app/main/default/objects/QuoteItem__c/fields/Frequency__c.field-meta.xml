@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Frequency__c</fullName>
+    <description>The billing frequency associated with the recurring price</description>
+    <externalId>false</externalId>
+    <label>Frequency</label>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <value>
+                <fullName>Custom</fullName>
+                <default>false</default>
+                <label>Custom</label>
+            </value>
+            <value>
+                <fullName>Monthly</fullName>
+                <default>false</default>
+                <label>Monthly</label>
+            </value>
+            <value>
+                <fullName>Quarterly</fullName>
+                <default>false</default>
+                <label>Quarterly</label>
+            </value>
+            <value>
+                <fullName>Yearly</fullName>
+                <default>false</default>
+                <label>Yearly</label>
+            </value>
+            <value>
+                <fullName>Project Start</fullName>
+                <default>false</default>
+                <label>Project Start</label>
+            </value>
+            <value>
+                <fullName>Project End</fullName>
+                <default>false</default>
+                <label>Project End</label>
+            </value>
+            <value>
+                <fullName>Phase End</fullName>
+                <default>false</default>
+                <label>Phase End</label>
+            </value>
+            <sorted>false</sorted>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

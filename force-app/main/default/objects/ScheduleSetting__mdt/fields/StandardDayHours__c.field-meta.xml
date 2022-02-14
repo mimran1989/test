@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StandardDayHours__c</fullName>
+    <description
+	>Number of hours in a work day generally considered to be normal for your organization</description>
+    <externalId>false</externalId>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <inlineHelpText
+	>Number of hours in a work day generally considered to be normal for your organization</inlineHelpText>
+    <label>Hours in a standard day</label>
+    <precision>2</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

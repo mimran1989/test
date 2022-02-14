@@ -1,0 +1,120 @@
+name: Next branch merge flow
+
+on:
+  push:
+    branches: [next]
+
+jobs:
+  cancel-previous-run:
+    name: Cancel Active Deployments
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+  build-release:
+    needs: [cancel-previous-run]
+    name: Build release
+    runs-on: ubuntu-latest
+    container:
+      image: provus1/provus-ci:2.0
+
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Build release
+        run: |
+          cp -R . /source
+          cd /source
+
+          mkdir node_modules
+          cp -R /node_modules/* /source/node_modules
+          npm install --silent
+
+          echo "\$token" > build/token.txt
+          sed -i 's?$token?${{ env.HUB_TOKEN }}?g' build/token.txt
+
+          npx semantic-release
+        env:
+          HUB_TOKEN: ${{ secrets.HUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.BUILD_MANAGER_TOKEN }}
+          GIT_AUTHOR_NAME: 'provus-release-manager'
+          GIT_AUTHOR_EMAIL: 'release-manager@provusinc.com'
+          GIT_COMMITTER_NAME: 'provus-release-manager'
+          GIT_COMMITTER_EMAIL: 'release-manager@provusinc.com'
+  deploy-to-staging:
+    needs: [cancel-previous-run]
+    name: Deploy to staging
+    runs-on: ubuntu-latest
+    container:
+      image: provus1/provus-ci:2.0
+
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: noliran/branch-based-secrets@v1
+        with:
+          secrets: CI_TOKEN
+      - name: Deploy to staging
+        run: |
+          cp -R . /source
+          cd /source
+
+          echo "\$token" > ../token.txt
+          sed -i 's?$token?${{ env.CI_TOKEN }}?g' ../token.txt
+
+          npx sfdx force:auth:sfdxurl:store -f ../token.txt -d -a DeployORG
+          npx sfdx force:source:deploy -u DeployORG -w 10 -p force-app
+        env:
+          CI_TOKEN: ${{ secrets[env.CI_TOKEN_NAME] }}
+  install-in-qa:
+    needs: [build-release]
+    name: Install release in qa
+    runs-on: ubuntu-latest
+    container:
+      image: provus1/provus-ci:2.0
+
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: next
+      - uses: noliran/branch-based-secrets@v1
+        with:
+          secrets: QA_TOKEN
+      - name: Install release in qa
+        run: |
+          cp -R . /source
+          cd /source
+
+          npm install '@slack/web-api'
+          echo "\$token" > ../token.txt
+          echo "\$token" > ../token_hub.txt
+          sed -i 's?$token?${{ env.QA_TOKEN }}?g' ../token.txt
+          sed -i 's?$token?${{ env.HUB_TOKEN }}?g' ../token_hub.txt
+
+          npx sfdx force:auth:sfdxurl:store -f ../token.txt -d -a DeployORG
+          npx sfdx force:auth:sfdxurl:store -f ../token_hub.txt -d -a HubORG
+
+          latestVersionInfo=$(npx sfdx force:package:version:list -v HubORG -p 'Provus Services Quoting' -o CreatedDate --concise --released | tail -1)
+          latestVersionNumber=$(echo $latestVersionInfo | awk '{print $2}' | sed 's/\.[^.]*$//')
+          latestVersionId=$(echo $latestVersionInfo | awk '{print $3}')
+          installedVersionId=$(npx sfdx force:package:installed:list -u DeployORG | grep 'Provus Services Quoting' | awk '{print $7}')         
+          if [ "$latestVersionId" != "$installedVersionId" ]; then
+              npx sfdx force:package:install -p $latestVersionId -u DeployORG -k installprovus -w 20              
+              echo "Installed v${latestVersionNumber} in qa!"
+              latestReleaseTagNotes=$(git tag -n2000 --contains | grep -A 2000 "###")
+              node build/notify-of-package-install.js -v "${latestVersionNumber}"  -c "qa-release" -n "${latestReleaseTagNotes}"            
+          else
+              echo "The latest version, v${latestVersionNumber}, is already installed in qa!"
+          fi
+        id: install-in-qa
+        env:
+          HUB_TOKEN: ${{ secrets.HUB_TOKEN }}
+          QA_TOKEN: ${{ secrets[env.QA_TOKEN_NAME] }}
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

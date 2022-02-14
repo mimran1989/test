@@ -1,0 +1,54 @@
+<!--
+  ~ Provus Services Quoting
+  ~ Copyright (c) 2021 Provus Inc. All rights reserved.
+  -->
+
+<template>
+	<c-message-service boundary="component-state"></c-message-service>
+
+	<div if:false={hasExpired}>
+		<div if:false={hasRoles} class="slds-text-align_center">{LABEL_ERROR_NO_AVAILABLE_ROLES}</div>
+		<lightning-combobox
+			if:true={hasRoles}
+			name="role"
+			class="role-select"
+			label={LABEL_SELECT_RESOURCE_ROLE}
+			value={selectedRole}
+			placeholder={LABEL_SELECT_RESOURCE_ROLE}
+			options={roles}
+			onchange={handleRoleSelection}
+		></lightning-combobox>
+	</div>
+
+	<div if:true={hasExpired} class="slds-text-align_center">{LABEL_ERROR_RATECARD_EXPIRED}</div>
+
+	<c-soql-datatable
+		class={datatableClasses}
+		checkbox-type="single"
+		query-string={queryStr}
+		sorted-by={sortedBy}
+		sorted-direction="desc"
+		onrowselection={handleRateItemSelection}
+		preselected-rows={rateCardItemId}
+	></c-soql-datatable>
+	<div class="slds-modal__footer">
+		<lightning-button
+			if:true={showCancelButton}
+			class="slds-p-right_x-small"
+			variant="neutral"
+			label={LABEL_CANCEL}
+			onclick={handleCancel}
+		></lightning-button>
+		<lightning-button
+			variant="brand"
+			label={LABEL_ADD_TO_QUOTE}
+			onclick={handleAddResource}
+			disabled={isAddButtonDisabled}
+		></lightning-button>
+		<lightning-button
+			if:true={disableContinueButton}
+			label={LABEL_CONTINUE}
+			onclick={handleContinue}
+		></lightning-button>
+	</div>
+</template>

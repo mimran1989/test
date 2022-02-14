@@ -1,0 +1,11 @@
+/*
+ * Provus Services Quoting
+ * Copyright (c) 2021 Provus Inc. All rights reserved.
+ */
+.slds-transition-hide {
+  transition: opacity .2s;
+}
+
+.slds-transition-show {
+  transition: opacity .2s;
+}

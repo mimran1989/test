@@ -1,0 +1,30 @@
+<template>
+	<c-message-service
+		class="component-state"
+		boundary="component-state"
+		onhide={handleHide}
+		onshow={handleShow}
+		onstatus={handleStatusRequest}
+	></c-message-service>
+	<c-message-service
+		boundary="grid-update"
+		ontotalschange={handleNameRangeUpdates}
+	></c-message-service>
+
+	<lightning-card if:true={isVisible} title="Quote Metrics" icon-name="utility:chart">
+		<template if:true={chartConfiguration}>
+			<div class="slds-grid">
+				<div class="slds-col">
+					<c-quote-configurator-reports
+						chart-config={chartConfiguration}
+					></c-quote-configurator-reports>
+				</div>
+				<div class="slds-col">
+					<c-quote-configurator-reports
+						chart-config={chartConfigurationRevenueVsCost}
+					></c-quote-configurator-reports>
+				</div>
+			</div>
+		</template>
+	</lightning-card>
+</template>

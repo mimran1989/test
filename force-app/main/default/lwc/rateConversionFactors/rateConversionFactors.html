@@ -1,0 +1,19 @@
+<!-- Rate Conversion Factors Dialog -->
+<template>
+	<header class="slds-modal__header">
+		<h2 class="slds-modal__title slds-hyphenate">{editRateFactor}</h2>
+	</header>
+	<lightning-datatable
+		data={objectOverrideData}
+		columns={conversionTableFactorColumns}
+		key-field="id"
+		hide-checkbox-column="true"
+		onsave={handleSave}
+	>
+	</lightning-datatable>
+	<c-message-service
+		class="rate-factor-override"
+		boundary="rate-factor-override"
+		onrateoverridechange={rateOverrideChange}
+	></c-message-service>
+</template>

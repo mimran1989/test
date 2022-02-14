@@ -1,0 +1,296 @@
+<template>
+	<c-message-service data-id="cs-msg-service" boundary="component-state"></c-message-service>
+	<div style="display: none">{recordId}</div>
+	<div class="slds-theme_default">
+		<lightning-quick-action-panel title="Create Scenario">
+			<header class="slds-modal__header" if:true={props.isQuickAction}>
+				<h2 class="slds-modal__title slds-hyphenate">Create Scenario</h2>
+			</header>
+			<div class={contentCSSClass}>
+				<div class="slds-col slds-size_1-of-4">
+					<div class="slds-col slds-size_1-of-1">
+						<h4>Name</h4>
+					</div>
+					<div class="slds-col slds-size_1-of-1">
+						<lightning-formatted-text value={quoteRecord.Name}></lightning-formatted-text>
+					</div>
+				</div>
+				<div class="slds-col slds-size_1-of-4">
+					<div class="slds-col slds-size_1-of-1">
+						<h4>Margin %</h4>
+					</div>
+					<div class="slds-col slds-size_1-of-1">
+						<lightning-formatted-number
+							value={quoteRecord.MarginPercent__c}
+							format-style="percent"
+							maximum-fraction-digits="2"
+						></lightning-formatted-number>
+					</div>
+				</div>
+				<div class="slds-col slds-size_1-of-4" if:true={quoteRecord.AccountName}>
+					<div class="slds-col slds-size_1-of-1">
+						<h4>Account</h4>
+					</div>
+					<div class="slds-col slds-size_1-of-1">
+						<lightning-formatted-url
+							value={quoteRecord.AccountURL}
+							label={quoteRecord.AccountName}
+							target="_self"
+						></lightning-formatted-url>
+					</div>
+				</div>
+				<div class="slds-col slds-size_1-of-4">
+					<div class="slds-col slds-size_1-of-1">
+						<h4>Amount</h4>
+					</div>
+					<div class="slds-col slds-size_1-of-1">
+						<lightning-formatted-number
+							value={quoteRecord.TotalAmount__c}
+							format-style="currency"
+							currency-code="USD"
+							maximum-fraction-digits="2"
+						></lightning-formatted-number>
+					</div>
+				</div>
+				<div class="slds-col slds-size_1-of-1 slds-p-vertical_medium">
+					<lightning-radio-group
+						name="radioGroup"
+						label="Action"
+						options={adjustmentOptions}
+						value={adjustmentType}
+						onchange={adjustmentChange}
+						type="Button"
+					></lightning-radio-group>
+				</div>
+				<div if:true={loaded} class="slds-is-relative slds-col slds-size_1-of-1">
+					<lightning-spinner alternative-text="Creating..." variant="brand"></lightning-spinner>
+				</div>
+				<div class="slds-col slds-size_1-of-1 slds-p-vertical_medium">
+					<div class="slds-col slds-size_1-of-1" if:true={props.isCreate}>
+						<lightning-input
+							type="text"
+							name="Scenario Name"
+							label="Scenario Name"
+							value={scenarioName}
+							onchange={scenarioNameUpdate}
+							class="scenario-name"
+							required
+						></lightning-input>
+					</div>
+					<div class="slds-col slds-size_1-of-1">
+						<template if:true={showRevenue}>
+							<lightning-input
+								type="number"
+								name="Revenue"
+								label="Adjust Revenue Amount to"
+								value={revenueAdjustment}
+								onchange={revenueValueUpdate}
+								class="revenue-adjustment"
+								required
+							></lightning-input>
+						</template>
+						<template if:true={showMargin}>
+							<lightning-input
+								type="number"
+								name="Margin"
+								label="Adjust Margin % to"
+								value={marginAdjustment}
+								onchange={marginValueUpdate}
+								class="margin-adjustment"
+								required
+							></lightning-input>
+						</template>
+						<template if:true={showRuleBased}> </template>
+					</div>
+
+					<div if:true={props.isQuickAction} class="slds-p-top_x-small slds-col slds-size_1-of-1">
+						<div class="slds-card slds-card_boundary">
+							<lightning-card title="Adjustment Rules" icon-name="utility:money" variant="base">
+								<div slot="actions"></div>
+								<div class="slds-card__body_inner">
+									<lightning-input
+										class="slds-m-bottom_small"
+										label="Input label"
+										placeholder="Search for rule..."
+										type="text"
+										variant="label-hidden"
+									></lightning-input>
+									<ul class="slds-list_vertical-space-medium">
+										<li class="slds-item">
+											<lightning-layout>
+												<lightning-layout-item size="12">
+													<div class="slds-media slds-media_center slds-media_large">
+														<div class="slds-media__figure">
+															<lightning-button-menu
+																variant="border"
+																menu-alignment="left"
+																icon-name="utility:down"
+																icon-size="medium"
+															>
+																<lightning-menu-item label="Edit"></lightning-menu-item>
+																<lightning-menu-item label="Delete"></lightning-menu-item>
+															</lightning-button-menu>
+														</div>
+														<div class="slds-media__body">
+															<lightning-layout class="slds-wrap" multiple-rows="true">
+																<lightning-layout-item size="1">
+																	<div class="slds-p-around_xxx-small" style="font-size: 0.8125rem">
+																		<p>Role</p>
+																	</div>
+																</lightning-layout-item>
+																<lightning-layout-item size="3">
+																	<lightning-badge
+																		class="slds-m-left_medium slds-badge"
+																		label="Architects"
+																	></lightning-badge>
+																</lightning-layout-item>
+																<lightning-layout-item size="8">
+																	<div
+																		class="slds-m-left_x-small slds-p-around_xxx-small"
+																		style="font-size: 13px; width: 120%"
+																	>
+																		<p style="user-select: auto">
+																			must have a minimum margin of 30%
+																		</p>
+																	</div>
+																</lightning-layout-item>
+															</lightning-layout>
+														</div>
+														<div class="slds-media__figure slds-media__figure_reverse"></div>
+													</div>
+												</lightning-layout-item>
+												<lightning-layout-item></lightning-layout-item>
+											</lightning-layout>
+										</li>
+										<li class="slds-item">
+											<lightning-layout>
+												<lightning-layout-item size="12">
+													<div class="slds-media slds-media_center slds-media_large">
+														<div class="slds-media__figure">
+															<lightning-button-menu
+																variant="border"
+																menu-alignment="left"
+																icon-name="utility:down"
+																icon-size="medium"
+															>
+																<lightning-menu-item label="Edit"></lightning-menu-item>
+																<lightning-menu-item label="Delete"></lightning-menu-item>
+															</lightning-button-menu>
+														</div>
+														<div class="slds-media__body">
+															<lightning-layout class="slds-wrap" multiple-rows="true">
+																<lightning-layout-item size="1">
+																	<div class="slds-p-around_xxx-small" style="font-size: 0.8125rem">
+																		<p>Location</p>
+																	</div>
+																</lightning-layout-item>
+																<lightning-layout-item size="3">
+																	<lightning-badge
+																		class="slds-m-left_x-large"
+																		label="Onshore"
+																	></lightning-badge>
+																</lightning-layout-item>
+																<lightning-layout-item size="8">
+																	<div style="font-size: 13px; width: 120%">
+																		<p style="user-select: auto">
+																			must have a minimum margin of 20%
+																		</p>
+																	</div>
+																</lightning-layout-item>
+															</lightning-layout>
+														</div>
+														<div class="slds-media__figure slds-media__figure_reverse"></div>
+													</div>
+												</lightning-layout-item>
+												<lightning-layout-item></lightning-layout-item>
+											</lightning-layout>
+										</li>
+										<li class="slds-item">
+											<lightning-layout>
+												<lightning-layout-item size="12">
+													<div class="slds-media slds-media_center slds-media_large">
+														<div class="slds-media__figure">
+															<lightning-button-menu
+																variant="border"
+																menu-alignment="left"
+																icon-name="utility:down"
+																icon-size="medium"
+															>
+																<lightning-menu-item label="Edit"></lightning-menu-item>
+																<lightning-menu-item label="Delete"></lightning-menu-item>
+															</lightning-button-menu>
+														</div>
+														<div class="slds-media__body">
+															<lightning-layout class="slds-wrap" multiple-rows="true">
+																<lightning-layout-item size="1">
+																	<div class="slds-p-around_xxx-small" style="font-size: 0.8125rem">
+																		<p>Role</p>
+																	</div>
+																</lightning-layout-item>
+																<lightning-layout-item size="3">
+																	<lightning-badge
+																		class="slds-m-left_small"
+																		label="DevOps Specialist"
+																	></lightning-badge>
+																</lightning-layout-item>
+																<lightning-layout-item size="8">
+																	<div
+																		class="slds-m-left_x-small slds-p-around_xxx-small"
+																		style="font-size: 13px; width: 120%"
+																	>
+																		<p style="user-select: auto">
+																			must have a minimum adjusted unit price of $11,000.00
+																		</p>
+																	</div>
+																</lightning-layout-item>
+															</lightning-layout>
+														</div>
+														<div class="slds-media__figure slds-media__figure_reverse"></div>
+													</div>
+												</lightning-layout-item>
+												<lightning-layout-item></lightning-layout-item>
+											</lightning-layout>
+										</li>
+									</ul>
+								</div>
+							</lightning-card>
+							<lightning-layout
+								class="slds-p-around_small slds-p-top_small slds-p-right_small slds-p-bottom_small slds-p-left_small"
+								horizontal-align="spread"
+							>
+								<lightning-layout vertical-align="center">
+									<lightning-icon
+										class="slds-m-right_small"
+										icon-name="utility:money"
+										size="x-small"
+										variant="default"
+									></lightning-icon>
+									<div class="slds-text-title_caps slds-text-color_default">CREATE A NEW RULE</div>
+								</lightning-layout>
+								<lightning-icon
+									icon-name="utility:new_window"
+									size="x-small"
+									variant="default"
+								></lightning-icon>
+							</lightning-layout>
+						</div>
+					</div>
+				</div>
+			</div>
+		</lightning-quick-action-panel>
+		<div class="slds-modal__footer" if:true={props.isQuickAction}>
+			<lightning-button
+				class="slds-p-right_x-small"
+				variant="neutral"
+				label="Cancel"
+				onclick={closeAction}
+			></lightning-button>
+			<lightning-button
+				variant="brand"
+				label="Create"
+				disabled={disableCreate}
+				onclick={createScenario}
+			></lightning-button>
+		</div>
+	</div>
+</template>

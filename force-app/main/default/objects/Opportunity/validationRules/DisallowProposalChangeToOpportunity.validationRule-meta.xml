@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DisallowProposalChangeToOpportunity</fullName>
+    <active>true</active>
+    <description>Disallow changing of the proposal for an opportunity</description>
+    <errorConditionFormula
+	>ISCHANGED(ProposalId__c) &amp;&amp; PRIORVALUE(ProposalId__c) != NULL</errorConditionFormula>
+    <errorMessage>The proposal for an opportunity cannot be changed</errorMessage>
+</ValidationRule>

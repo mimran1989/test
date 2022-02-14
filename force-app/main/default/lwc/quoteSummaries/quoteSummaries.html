@@ -1,0 +1,74 @@
+<template>
+	<c-message-service
+		boundary="component-state"
+		class="component-state"
+		onupdate={refreshSummaryTab}
+	>
+	</c-message-service>
+
+	<div class="slds-page-header slds-is-relative">
+		<h2 class="slds-card__header-title row-margin-bottom">
+			<span title="Resource Role Summary" class="slds-truncate row-margin-left"
+				>Resource Role Summary</span
+			>
+		</h2>
+		<div class="slds-card slds-card_boundary">
+			<c-summary-datatable
+				columns={resourceRoleColumns}
+				rows={resourceRoleSummaries}
+			></c-summary-datatable>
+		</div>
+	</div>
+
+	<div class="slds-page-header slds-is-relative row-margin-top-15">
+		<h2 class="slds-card__header-title row-margin-bottom">
+			<span title="Resource Role (Displayed) Summary" class="slds-truncate row-margin-left"
+				>Resource Role (Displayed) Summary</span
+			>
+		</h2>
+		<div class="slds-card slds-card_boundary row-margin-top-5">
+			<c-summary-datatable
+				columns={resourceRoleColumns}
+				rows={resourceRoleOverrideSummaries}
+			></c-summary-datatable>
+		</div>
+	</div>
+
+	<!-- <div class="slds-page-header slds-is-relative row-margin-top-15">
+		<h2 class="slds-card__header-title row-margin-bottom">
+			<template if:true={projectPhaseSchema}>
+				<span title="Project Phase Summary" class="slds-truncate row-margin-left"
+					>{projectPhaseSchema.data.label} {LABEL_SUMMARY}</span
+				>
+			</template>
+		</h2>
+		<div class="slds-card slds-card_boundary row-margin-top-5" if:true={projectPhaseSummaries}>
+			<c-summary-datatable
+				columns={projectPhaseColumns}
+				rows={projectPhaseSummaries}
+			></c-summary-datatable>
+		</div>
+	</div> -->
+
+	<div class="slds-page-header slds-is-relative row-margin-top-15">
+		<h2 class="slds-card__header-title row-margin-bottom">
+			<span title="Period Group Summary" class="slds-truncate row-margin-left"
+				>Period Group Summary</span
+			>
+		</h2>
+		<div class="slds-card slds-card_boundary row-margin-top-5">
+			<c-summary-datatable
+				columns={periodGroupColumns}
+				rows={periodGroupSummaries}
+			></c-summary-datatable>
+		</div>
+	</div>
+
+	<div if:true={showSpinner}>
+		<lightning-spinner
+			alternative-text="Loading"
+			size="large"
+			variant="inverse"
+		></lightning-spinner>
+	</div>
+</template>

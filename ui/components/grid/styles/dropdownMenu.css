@@ -1,0 +1,13 @@
+/* context menu visiblity */
+div.listbox {
+  overflow: visible !important;
+}
+
+div.listbox > div.ht_master {
+  overflow: inherit !important;
+}
+
+div.listbox > div > .wtHolder {
+  overflow: inherit !important;
+}
+

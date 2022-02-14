@@ -1,0 +1,23 @@
+<template>
+	<c-message-service boundary="component-state"></c-message-service>
+	<lightning-input
+		name="addon"
+		label={LABEL_RENAME_ADDON}
+		placeholder={LABEL_RENAME_ADDON}
+		onchange={validateAddonLabel}
+	></lightning-input>
+	<div class="slds-modal__footer">
+		<lightning-button
+			class="slds-p-right_x-small"
+			variant="neutral"
+			label={LABEL_CANCEL}
+			onclick={handleCancel}
+		></lightning-button>
+		<lightning-button
+			variant="brand"
+			label={LABEL_RENAME_ADDON}
+			onclick={handleRenameAddon}
+			disabled={disableRename}
+		></lightning-button>
+	</div>
+</template>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Group__c</fullName>
+    <externalId>false</externalId>
+    <label>Group</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Practice__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetName>Groups</valueSetName>
+        <valueSettings>
+            <controllingFieldValue>SFDC</controllingFieldValue>
+            <controllingFieldValue>Oracle</controllingFieldValue>
+            <controllingFieldValue>AWS</controllingFieldValue>
+            <controllingFieldValue>GCP</controllingFieldValue>
+            <controllingFieldValue>DevOps</controllingFieldValue>
+            <valueName>Cloud</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>SFDC</controllingFieldValue>
+            <controllingFieldValue>Java</controllingFieldValue>
+            <controllingFieldValue>Python</controllingFieldValue>
+            <controllingFieldValue>Architect</controllingFieldValue>
+            <controllingFieldValue>SAP</controllingFieldValue>
+            <valueName>Software</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>SFDC</controllingFieldValue>
+            <controllingFieldValue>SAP</controllingFieldValue>
+            <valueName>CRM</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Oracle</controllingFieldValue>
+            <controllingFieldValue>SAP</controllingFieldValue>
+            <valueName>ERP</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CI/CD</controllingFieldValue>
+            <controllingFieldValue>DevOps</controllingFieldValue>
+            <valueName>Digital</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Custom Development</controllingFieldValue>
+            <valueName>Java</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Custom Development</controllingFieldValue>
+            <valueName>.Net</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cloud Consulting</controllingFieldValue>
+            <controllingFieldValue>AWS</controllingFieldValue>
+            <valueName>AWS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cloud Consulting</controllingFieldValue>
+            <valueName>Azure</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cloud Consulting</controllingFieldValue>
+            <controllingFieldValue>GCP</controllingFieldValue>
+            <valueName>GCP</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Outsourcing</controllingFieldValue>
+            <valueName>Mainframe Applications</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Outsourcing</controllingFieldValue>
+            <valueName>IT Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Outsourcing</controllingFieldValue>
+            <controllingFieldValue>DevOps</controllingFieldValue>
+            <valueName>IT Support</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>DevOps</controllingFieldValue>
+            <valueName>DevOps</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

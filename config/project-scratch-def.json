@@ -1,0 +1,5 @@
+{
+  "orgName": "Provus Services Quoting",
+  "edition": "Developer",
+  "features": ["MultiCurrency", "PlatformCache", "DebugApex"]
+}

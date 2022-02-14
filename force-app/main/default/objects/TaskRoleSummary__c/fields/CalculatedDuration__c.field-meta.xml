@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CalculatedDuration__c</fullName>
+    <externalId>false</externalId>
+    <label>Calculated Duration</label>
+    <summarizedField>Task__c.CalculatedDuration__c</summarizedField>
+    <summaryForeignKey>Task__c.RoleSummaryId__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

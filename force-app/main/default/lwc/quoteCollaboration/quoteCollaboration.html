@@ -1,0 +1,131 @@
+<template>
+	<span style="display: none">{render}</span>
+	<c-message-service boundary="component-state"></c-message-service>
+	<header class="slds-modal__header">
+		<h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Invite to Collaborate</h2>
+	</header>
+	<div class="slds-modal__content slds-var-p-around_medium" style="padding-top: 0">
+		<lightning-card variant="base">
+			<!--Footer Buttons-->
+			<div slot="footer">
+				<lightning-layout horizontal-align="spread" vertical-align="center">
+					<lightning-layout-item></lightning-layout-item>
+					<lightning-layout-item>
+						<lightning-button
+							class="slds-m-right_x-small slds-theme_neutral"
+							variant="neutral"
+							label="Cancel"
+							onclick={handleCancel}
+						></lightning-button>
+						<template if:true={isInviteEnabled}>
+							<lightning-button
+								class="slds-theme_brand"
+								variant="brand"
+								label="Invite"
+								onclick={submitInvitationToCollaborate}
+							></lightning-button>
+						</template>
+						<template if:false={isInviteEnabled}>
+							<button
+								name="button-invite-disabled"
+								class="slds-button slds-button_brand slds-theme_brand"
+								title={LABEL_COLLABORATION_INVITE_ERROR}
+								disabled
+							>
+								Invite
+							</button>
+						</template>
+					</lightning-layout-item>
+				</lightning-layout>
+			</div>
+
+			<lightning-layout class="slds-wrap" multiple-rows="true">
+				<lightning-layout-item size="12">
+					<div
+						style="margin-bottom: 20px; margin-top: 1%"
+						class="slds-p-around_small slds-p-right_small slds-p-bottom_small slds-p-left_small slds-theme_shade"
+					>
+						<lightning-input
+							id="searchKey"
+							label="Input label"
+							placeholder="Search User"
+							type="search"
+							variant="label-hidden"
+							value={searchKey}
+							onchange={handleSearchKeyChange}
+						></lightning-input>
+					</div>
+					<div class="slds-card slds-card_boundary user-datatable">
+						<lightning-datatable
+							class="slds-grid"
+							key-field="Id"
+							data={userData}
+							columns={userColumns}
+							onrowselection={handleSelectedRows}
+							selected-rows={selectedUserIds}
+							max-row-selection="1"
+						>
+						</lightning-datatable>
+					</div>
+				</lightning-layout-item>
+				<!-- <lightning-layout-item size="6" style="width: 30%">
+					<lightning-card title="View Permissions" icon-name="action:preview" variant="base">
+						<div slot="actions"></div>
+						<div class="slds-card__body_inner">
+							<lightning-input
+								type="checkbox"
+								id="showTotals"
+								label="Show Totals"
+								value={showTotals}
+							></lightning-input>
+							<lightning-input
+								type="checkbox"
+								id="showOtherSections"
+								label="Show Other Sections"
+								value={showOtherSections}
+							></lightning-input>
+							<lightning-input
+								type="checkbox"
+								id="showPhases"
+								label="Show Phases"
+								value={showPhases}
+							></lightning-input>
+							<lightning-input
+								type="checkbox"
+								id="showMargin"
+								label="Show Margin"
+								value={showMargin}
+							></lightning-input>
+							<lightning-input
+								type="checkbox"
+								id="showRevenue"
+								label="Show Revenue"
+								value={showRevenue}
+							></lightning-input>
+						</div>
+					</lightning-card>
+				</lightning-layout-item> -->
+			</lightning-layout>
+			<lightning-layout class="slds-wrap" style="margin-top: 20px">
+				<div
+					style="margin-bottom: 15px"
+					class="slds-text-heading_medium slds-text-title slds-text-color_weak"
+				>
+					Select Quote Sections
+				</div>
+
+				<div class="slds-card slds-card_boundary">
+					<lightning-datatable
+						class="slds-grid"
+						key-field="Id"
+						data={quoteSectionData}
+						columns={sectionColumns}
+						onrowselection={handleSelectedSections}
+						selected-rows={selectedQuoteSectionIds}
+					>
+					</lightning-datatable>
+				</div>
+			</lightning-layout>
+		</lightning-card>
+	</div>
+</template>

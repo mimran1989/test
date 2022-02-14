@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RateCardId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Rate Card</label>
+    <lookupFilter>
+        <active>true</active>
+        <booleanFilter>(3 OR 1) AND (4 OR 2) AND 5</booleanFilter>
+        <errorMessage
+		>The Rate Card is expired/inactive during the selected service start date</errorMessage>
+        <filterItems>
+            <field>$Source.ServiceStartDate__c</field>
+            <operation>greaterOrEqual</operation>
+            <valueField>RateCard__c.EffectiveDate__c</valueField>
+        </filterItems>
+        <filterItems>
+            <field>$Source.ServiceStartDate__c</field>
+            <operation>lessOrEqual</operation>
+            <valueField>RateCard__c.ExpirationDate__c</valueField>
+        </filterItems>
+        <filterItems>
+            <field>RateCard__c.EffectiveDate__c</field>
+            <operation>equals</operation>
+            <value />
+        </filterItems>
+        <filterItems>
+            <field>RateCard__c.ExpirationDate__c</field>
+            <operation>equals</operation>
+            <value />
+        </filterItems>
+        <filterItems>
+            <field>RateCard__c.IsActive__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>RateCard__c</referenceTo>
+    <relationshipLabel>Quotes</relationshipLabel>
+    <relationshipName>Quotes</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

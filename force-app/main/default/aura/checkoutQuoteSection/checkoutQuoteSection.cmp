@@ -1,0 +1,14 @@
+<aura:component
+	implements="lightning:isUrlAddressable, flexipage:availableForAllPageTypes"
+	access="global"
+>
+	<div class="slds-modal__container" style="border: none">
+		<lightning:card title="{!$Label.c.CheckingOut}">
+			<lightning:layout>
+				<lightning:layoutItem>
+					<c:generateCollaborationQuote />
+				</lightning:layoutItem>
+			</lightning:layout>
+		</lightning:card>
+	</div>
+</aura:component>
